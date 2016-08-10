@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 # Use sqlite3 as the database for Active Record
@@ -11,6 +10,17 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+# Refactor application
+gem 'rename'
+# RailsAdmin is provides an easy-to-use interface for managing your data.
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
+# CKEditor is a WYSIWYG text editor designed to simplify web content creation
+gem 'ckeditor', github: 'galetahub/ckeditor'
+# Paperclip is intended as an easy file attachment library for ActiveRecord.
+gem 'paperclip'
+# Devise is a flexible authentication solution for Rails based on Warden
+gem 'devise'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
