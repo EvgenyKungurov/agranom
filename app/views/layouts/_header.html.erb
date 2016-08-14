@@ -9,23 +9,32 @@
         <span class="icon-bar"></span>
       </button>
       <%= image_tag 'calc_trees_icon.png', id: 'green_tree' %>
-      <%= link_to 'Agranom', root_url, class: "navbar-brand" %>
+      <%= link_to 'Agropolis', root_url, class: "navbar-brand" %>
+      <%= link_to image_tag('russian_federation', size: '40x40'), root_url(locale: 'ru')%>
+      <%= link_to image_tag('united_states', size: '40x40'), root_url(locale: 'en')%>
+      <%= link_to image_tag('china', size: '40x40'), root_url(locale: 'cn')%>
     </div>
     <div class="navbar-collapse collapse navbar-right">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">HOME</a></li>
+        <li class="active"><%= link_to t('home'), root_url %></li>
         <li><a href="about.html">ABOUT</a></li>
         <li><a href="contact.html">CONTACT</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">PAGES <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="blog.html">BLOG</a></li>
-            <li><a href="single-post.html">SINGLE POST</a></li>
-            <li><a href="portfolio.html">PORTFOLIO</a></li>
-            <li><a href="single-project.html">SINGLE PROJECT</a></li>
-          </ul>
-        </li>
+        <% if current_user %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="user_email"><%= current_user.email %> <b class="caret"></div></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="blog.html">BLOG</a></li>
+              <li><a href="single-post.html">SINGLE POST</a></li>
+              <li><a href="portfolio.html">PORTFOLIO</a></li>
+              <li><%= link_to t('sign_out'), sign_out_path %></li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to t('sign_in'), sign_in_path %></li>
+        <% end %>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
 </div>
+<br>
+<br><br>
