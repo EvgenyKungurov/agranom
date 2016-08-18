@@ -17,6 +17,7 @@
     <div class="navbar-collapse collapse navbar-right">
       <ul class="nav navbar-nav">
         <li class="active"><%= link_to t('home'), root_url %></li>
+        <li><%= link_to t('articles'), articles_path %></li>
         <li><a href="about.html">ABOUT</a></li>
         <li><a href="contact.html">CONTACT</a></li>
         <% if current_user %>

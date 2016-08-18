@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SessionHelper
   protect_from_forgery prepend: true
 
   def default_url_options

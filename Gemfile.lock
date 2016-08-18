@@ -91,6 +91,11 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_girl (4.7.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.7.0)
+      factory_girl (~> 4.7.0)
+      railties (>= 3.0.0)
     ffi (1.9.14)
     font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
@@ -195,6 +200,7 @@ GEM
       rails (>= 3.0.0)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
+    rolify (5.1.0)
     rspec-core (3.5.2)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -263,6 +269,7 @@ DEPENDENCIES
   ckeditor!
   coffee-rails (~> 4.2)
   devise
+  factory_girl_rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
@@ -274,6 +281,7 @@ DEPENDENCIES
   rails_admin (>= 1.0.0.rc)
   remotipart!
   rename
+  rolify
   rspec-rails (~> 3.5)
   sass-rails (~> 5.0)
   spring
