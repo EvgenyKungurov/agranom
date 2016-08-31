@@ -10,12 +10,6 @@ RSpec.describe 'should be able sign in', type: :request do
     click_button 'Log in'
   end
 
-  # def sign_in(user)
-  #   user = { 'user[email]' => user.email, 'user[password]' => user.password }
-  #   post new_user_session_path, params: user
-  #   follow_redirect!
-  # end
-
   it 'should be load sign_in' do
     get sign_in_path
     expect(response).to be_success
@@ -25,6 +19,5 @@ RSpec.describe 'should be able sign in', type: :request do
   it 'displays the user email after successful login' do
     sign_in(user)
     expect(page).to have_selector('#user_email', text: user.email)
-    # assert_select '#user_email', text: user.email
   end
 end

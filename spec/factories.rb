@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   factory :article do
-    title 'Hello World'
+    title 'From Russia with love'
     content 'Some content'
   end
 end
