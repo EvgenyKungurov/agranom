@@ -12,7 +12,7 @@ RSpec.describe 'articles/index' do
   let!(:user) { FactoryGirl.create :user }
   let!(:article) { FactoryGirl.create :article }
 
-  describe 'GET #index' do
+  describe 'GET #show' do
     it 'renders the index template' do
       visit article_path(article)
       expect(page).to render_template('show')
