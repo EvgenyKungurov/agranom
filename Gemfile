@@ -14,7 +14,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Refactor application
 gem 'rename'
-# RailsAdmin is provides an easy-to-use interface for managing your data.
+# RailsAdmin is provides an easy-to-use interface for managing your data
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
 # CKEditor is a WYSIWYG text editor designed to simplify web content creation
@@ -27,7 +27,8 @@ gem 'devise'
 gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+# Awesome Nested Set is an implementation of the nested set pattern for AR
+gem 'awesome_nested_set'
 # Use Bootstrap for UI CSS
 gem 'bootstrap-sass'
 # Use jquery as the JavaScript library
