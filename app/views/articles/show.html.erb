@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <%= @article.title %>
+  <%= @article.title.html_safe %>
 </p>
 
 <p>
-  <%= @article.content %>
+  <%= @article.content.html_safe %>
 </p>
 
 
