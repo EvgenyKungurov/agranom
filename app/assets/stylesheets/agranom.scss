@@ -9,20 +9,17 @@
 		padding: 0px;
 	}
 
-#green_tree {
-  height: 50px;
-  float: left;
-}
-
-#user_email {
-	font-size: 1.7rem;
-}
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: white;
-  background-color: transparent;
+html {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
+	margin: 0;
+  padding: 0;
+	margin-bottom: 260px;
 	background: #ffffff;
 	margin: 0;
 	height: 100%;
@@ -77,6 +74,12 @@ a:focus {
 	color: #fff;
 	text-shadow:none;
 	background:#2B2E31;
+}
+
+.content {
+	width: 100%;
+	min-height: 100%;
+  margin-bottom: 260px;
 }
 
 .centered {
@@ -335,9 +338,10 @@ a:focus {
 
 /* Footer */
 #footerwrap {
-	padding-top: 60px;
-	padding-bottom: 60px;
+	padding-bottom: 20px;
 	background: #384452;
+	bottom: 0;
+  width: 100%;
 }
 
 #footerwrap p {
@@ -458,4 +462,17 @@ csmall2 {
 .share i {
 	padding-right: 15px;
 	font-size: 18px;
+}
+
+#green_tree {
+  height: 50px;
+  float: left;
+}
+
+#user_email {
+	font-size: 1.7rem;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: white;
+  background-color: transparent;
 }
