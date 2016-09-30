@@ -62,7 +62,7 @@ RSpec.feature 'Articles', type: :feature do
       visit new_article_path
       fill_in 'Title', with: article.title
       fill_in 'Content', with: article.content
-      click_button 'Create Article'
+      click_button 'Создать Article'
       expect(current_path).to eq article_path(article.id + 1)
     end
   end
