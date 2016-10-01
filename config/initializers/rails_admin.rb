@@ -54,4 +54,10 @@ RailsAdmin.config do |config|
       # end
     end
   end
+
+  config.model Category do
+    edit do
+      exclude_fields :id, :lft, :rgt, :children, :depth
+    end
+  end
 end
