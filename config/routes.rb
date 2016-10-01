@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/brainstorage', as: 'rails_admin'
   resources :articles
+  resources :ads
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
