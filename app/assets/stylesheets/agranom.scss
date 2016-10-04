@@ -2,8 +2,6 @@
 @import "bootstrap";
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900);
-@import url("prettyPhoto.css") screen;
-@import url("hoverex-all.css") screen;
 * {
 		margin: 0;
 		padding: 0px;
@@ -17,7 +15,7 @@ html {
 }
 
 body {
-	margin: 0;
+	min-height: 100%;
   padding: 0;
 	margin-bottom: 260px;
 	background: #ffffff;
@@ -31,6 +29,14 @@ body {
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Raleway', sans-serif;
 	font-weight: 700;
+}
+
+li {
+	list-style-type: none;
+}
+
+.table > tbody > tr > td {
+	border-top: none;
 }
 
 p {
@@ -77,6 +83,7 @@ a:focus {
 }
 
 .content {
+	margin-top: 10px;
 	width: 100%;
 	min-height: 100%;
   margin-bottom: 260px;
@@ -120,12 +127,12 @@ a:focus {
 }
 
 .navbar-default {
-	background-color: #384452;
+	background-color: #2262AD;
 	border-color: transparent;
 }
 
 .dropdown-menu {
-	background: #384452;
+	background: #2262AD;
 }
 
 .dropdown-menu > li > a {
@@ -338,8 +345,8 @@ a:focus {
 
 /* Footer */
 #footerwrap {
-	padding-bottom: 20px;
-	background: #384452;
+	position: absolute;
+	background: #2262AD;
 	bottom: 0;
   width: 100%;
 }
@@ -475,4 +482,28 @@ csmall2 {
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
   color: white;
   background-color: transparent;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background-color: white;
+  color: #555;
+}
+
+.category {
+	margin-bottom: 12px;
+  background: url(/i/catalogpiu.png) 3px 5px no-repeat;
+  padding: 0 0 0 20px;
+  a {
+  	text-decoration: underline;
+  }
+}
+
+.navbar-default .navbar-nav > li > a {
+  font-size: 1.5rem;
+}
+
+.btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
+  color: #333;
+  background-color: white;
+  border-color: #8c8c8c;
 }
