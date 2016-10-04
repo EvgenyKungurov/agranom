@@ -1,1 +1,25 @@
-HELLO :)
+<%= render 'layouts/search' %>
+<button type="button" class="btn btn-success">Подать объявление</button>
+
+<table class="table">
+  <% @categories.each_slice(3) do |cons| %> 
+    <tr>
+      <ul class="list-group">
+        <% cons.each do |c| %>
+          <td>
+            <li role="presentation">
+              <a href="#" class="list-group-item active"><%= c.name %></a>
+                <li class="category">
+                  <% c.children.each do |child| %>
+                    <a href="#"><%= child.name %></a>
+                    <span class="badge"><%= child.children_count %></span>
+                  <% end %>
+                </li>      
+              </ul>
+            </li>
+          </td>
+        <% end %>
+      </ul>
+    </tr>   
+  <% end %>      
+</table>
