@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   def index
-    @root_categories = Categories.roots
+    @root_categories = Category.roots
   end
 
   def new
