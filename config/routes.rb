@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :profiles
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/brainstorage', as: 'rails_admin'
   resources :articles
