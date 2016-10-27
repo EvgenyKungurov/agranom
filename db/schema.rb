@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930145553) do
+ActiveRecord::Schema.define(version: 20161007104804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ads", force: :cascade do |t|
+    t.string   "name"
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["category_id"], name: "index_ads_on_category_id", using: :btree
+    t.index ["user_id"], name: "index_ads_on_user_id", using: :btree
+  end
 
   create_table "articles", force: :cascade do |t|
     t.text     "title"
@@ -34,6 +45,14 @@ ActiveRecord::Schema.define(version: 20160930145553) do
     t.index ["rgt"], name: "index_categories_on_rgt", using: :btree
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_cities_on_region_id", using: :btree
+  end
+
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
@@ -48,6 +67,37 @@ ActiveRecord::Schema.define(version: 20160930145553) do
     t.datetime "updated_at",                   null: false
     t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "short_name"
+  end
+
+  create_table "phones", force: :cascade do |t|
+    t.string   "number"
+    t.integer  "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_phones_on_profile_id", using: :btree
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.string   "name"
+    t.integer  "city_id"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_regions_on_country_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|
@@ -83,4 +133,7 @@ ActiveRecord::Schema.define(version: 20160930145553) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "ads", "categories"
+  add_foreign_key "ads", "users"
+  add_foreign_key "phones", "profiles"
 end

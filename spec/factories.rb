@@ -1,4 +1,23 @@
 FactoryGirl.define do
+  factory :phone do
+    number "MyText"
+    profile nil
+  end
+  factory :ad do
+    name "MyString"
+    content "MyText"
+    user nil
+    category nil
+  end
+  factory :city do
+    name "MyString"
+  end
+  factory :region do
+    name "MyString"
+  end
+  factory :contry do
+    name ""
+  end
   factory :profile do
     
   end

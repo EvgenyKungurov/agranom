@@ -27,3 +27,19 @@ en:
   sign_out: Sign_out
   articles: Articles
   ad: Ads
+  profile: Profile
+  dashboard: Dashboard
+  your_name: Your name
+  city: City
+  phone: Phone
+  edit: Edit
+  back: Back
+  profile_title: Profile progress bar
+  profile_info: Need fill all fields to write ads 
+  editing_profile: Editing Profile
+  show: Show
+  name: Name
+  city: City
+  phone: Phone
+  select_country: Select country
+  select_region: Select region

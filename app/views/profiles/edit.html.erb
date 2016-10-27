@@ -1,6 +1,8 @@
-<h1>Editing Profile</h1>
-
-<%= render 'form', profile: @profile %>
-
-<%= link_to 'Show', @profile %> |
-<%= link_to 'Back', profiles_path %>
+<%= render 'layouts/dashboard_nav' %>
+<div class="profile-info">
+  <p id="notice"><%= notice %></p>
+  <h1><%= t('editing_profile') %></h1>
+  <%= render 'form', profile: @profile %>
+  <%= link_to t('show'), @profile %> |
+  <%= link_to t('back'), profile_path(current_user.profile.id) %> 
+</div>

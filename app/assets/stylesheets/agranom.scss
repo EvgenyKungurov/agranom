@@ -8,14 +8,12 @@
 	}
 
 html {
-  position: relative;
-  min-height: 100%;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
-	min-height: 100%;
   padding: 0;
 	margin-bottom: 260px;
 	background: #ffffff;
@@ -86,7 +84,7 @@ a:focus {
 	margin-top: 10px;
 	width: 100%;
 	min-height: 100%;
-  margin-bottom: 260px;
+  margin-bottom: 50px;
 }
 
 .centered {
@@ -345,7 +343,9 @@ a:focus {
 
 /* Footer */
 #footerwrap {
-	position: absolute;
+	position: relative;
+  clear: both;
+  margin-top: -150px;
 	background: #2262AD;
 	bottom: 0;
   width: 100%;
@@ -506,4 +506,16 @@ csmall2 {
   color: #333;
   background-color: white;
   border-color: #8c8c8c;
+}
+
+.dashboard-nav {
+	width: 20%;
+	float: left;
+}
+
+.profile-info {
+	width: 40%;
+	float: left;
+  clear: right;
+  margin-left: 10px;
 }

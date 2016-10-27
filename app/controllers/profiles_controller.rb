@@ -1,15 +1,22 @@
 class ProfilesController < ApplicationController
+  #before_action :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  #before_action :user_profile?
 
-  # GET /profiles
-  # GET /profiles.json
-  def index
-    @profiles = Profile.all
+  def find_city
+    @find_city_service = FindCityService.new(params)
+    @result = @find_city_service.find
+    @type_of_request = @find_city_service.type_of_request
+
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    @progress_bar = ProgressBar.new(@profile).generate
   end
 
   # GET /profiles/new
@@ -19,27 +26,16 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-  end
-
-  # POST /profiles
-  # POST /profiles.json
-  def create
-    @profile = Profile.new(profile_params)
-
-    respond_to do |format|
-      if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-        format.json { render :show, status: :created, location: @profile }
-      else
-        format.html { render :new }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
-      end
-    end
+    @countries = Country.all
+    @city      = City.find(@profile.city_id).name
+    #   @region    = @city.region.name
+    @profile.phones.build if @profile.phones.empty?
   end
 
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+    @countries = Country.all
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
@@ -62,13 +58,17 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def profile_params
-      params.fetch(:profile, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_profile
+    # @profile = Profile.where(user_id: current_user.id)
+    @profile = Profile.where(user_id: current_user.id).first
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def profile_params
+    params.require(:profile).permit(
+      :name, :city_id, phones_attributes: [:id, :number, :country_code, :profile_id]
+    )
+  end
 end
