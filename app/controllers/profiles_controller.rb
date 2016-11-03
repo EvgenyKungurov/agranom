@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  #before_action :user_profile?
+  before_action :user_profile?, except: [:new, :find_city]
 
   def find_city
     @find_city_service = FindCityService.new(params)
@@ -26,10 +26,8 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @countries = Country.all
-    @city      = City.find(@profile.city_id).name
-    #   @region    = @city.region.name
     @profile.phones.build if @profile.phones.empty?
+    @countries, @city, @region = EditCityService.new(@profile).vars
   end
 
   # PATCH/PUT /profiles/1

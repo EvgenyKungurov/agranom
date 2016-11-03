@@ -4,6 +4,7 @@ module SessionHelper
   end
 
   def user_profile?
+    byebug
     redirect_to root_path unless current_user.profile.id == params[:id].to_i
   end
 

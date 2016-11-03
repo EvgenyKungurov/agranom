@@ -11,7 +11,7 @@ $(document).on "turbolinks:load", ->
       url: "find_city"
       type: "GET" 
       data: 'get_id=' + $('#select_country option:selected').val() + ';' + 
-        'type_of_request=select_country' 
+        'type_of_request=select_region' 
       dataType: "script"  
 
   $('#select_region').change ->
@@ -21,5 +21,5 @@ $(document).on "turbolinks:load", ->
       url: "find_city"
       type: "GET" 
       data: 'get_id=' + $('#select_region option:selected').val() + ';' + 
-        'type_of_request=select_region'
+        'type_of_request=select_city'
       dataType: "script"

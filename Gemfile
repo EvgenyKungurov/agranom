@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.0.0'
 # Use pg as the database for Active Record
 gem 'pg'
 # Very simple Roles library
@@ -56,6 +56,8 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'guard'
+  gem 'guard-rails'
 end
 
 group :development do
