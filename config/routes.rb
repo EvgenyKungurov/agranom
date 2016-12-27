@@ -1,17 +1,19 @@
 Rails.application.routes.draw do
-  resources :profiles do
+  resources :profiles, except: [:index, :create, :destroy] do
+    resources :ads, controller: 'profiles/ads' do
+      get 'archive', to: 'ads/archive', on: :collection
+    end
     get 'find_city', to: 'profiles/find_city'
   end
 
   mount Ckeditor::Engine => '/ckeditor'
   mount RailsAdmin::Engine => '/brainstorage', as: 'rails_admin'
 
+  resources :photos
   resources :articles
   resources :ads
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   devise_scope :user do
     get 'sign_in', to: 'users/sessions#new'

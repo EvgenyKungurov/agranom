@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="alert alert-success" role="alert">
+    <h4 class="center_align">
+      <%= t('new_ad') %>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <p id="notice"><%= notice %></p>
+  <%= render 'form', ad: @ad, url: profile_ads_path %>
+</div>

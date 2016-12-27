@@ -6,10 +6,10 @@ RSpec.feature 'Rails admin', type: :feature do
     visit '/sign_in'
     fill_in 'user[email]', with: user.email
     fill_in 'user[password]', with: user.password
-    click_button 'Log in'
+    click_button 'Войти'
   end
 
-  let!(:user) { FactoryGirl.create :user }
+  let!(:user) { FactoryGirl.create :user1 }
   let!(:article) { FactoryGirl.create :article }
   let!(:article_params) { FactoryGirl.attributes_for(:article) }
 

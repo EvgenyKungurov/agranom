@@ -20,7 +20,9 @@ gem 'rails_admin', '>= 1.0.0.rc'
 # CKEditor is a WYSIWYG text editor designed to simplify web content creation
 gem 'ckeditor', github: 'galetahub/ckeditor'
 # Paperclip is intended as an easy file attachment library for ActiveRecord.
-gem 'paperclip'
+gem 'Bootstrap-Image-Gallery-rails'
+gem 'paperclip', git: 'git://github.com/thoughtbot/paperclip.git'
+gem 'dropzonejs-rails'
 # Devise is a flexible authentication solution for Rails based on Warden
 gem 'devise'
 # Use CoffeeScript for .coffee assets and views
@@ -53,11 +55,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5'
-  gem 'rails-controller-testing'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'guard'
   gem 'guard-rails'
+  gem 'guard-rspec', require: false
 end
 
 group :development do

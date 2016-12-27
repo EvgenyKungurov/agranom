@@ -1,0 +1,62 @@
+<%= form_for(ad, url: url, html: { multipart: true, 'data-toggle': 'validator' }) do |f| %>
+  <% if ad.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
+
+      <ul>
+      <% ad.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t(:category) %>
+    <%= f.select 'category_id', options_from_collection_for_select(@categories, "id", "name", ad.category_id || '0'), { include_blank: t('select_category') }, class: 'form-control', required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label t(:price) %>
+    <%= f.text_field :price, class: 'form-control', required: true, type: "number" %>
+  </div>
+
+  <div class="field">
+    <%= f.label t(:city) %>
+    <%= f.select :city_id, options_from_collection_for_select(@cities, 'id', 'name', current_user.profile.city_id || '0'), { include_blank: t('select_city')}, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label t(:title) %>
+    <%= f.text_field :title, class: 'form-control', required: true, minlength: "10"  %>
+  </div>
+
+  <div class="field">
+    <%= f.label t(:content) %>
+    <%= f.text_area :content, class: 'form-control', id: '', required: true  %>
+  </div>
+
+  <div class="field">
+    <%= hidden_field_tag :uploaded_images, '', id: 'uploaded_images' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t('save_ad'), class: 'btn btn-success' %>
+  </div>
+
+<% end %>
+
+</br> 
+<%= form_for(Photo.new, html: { multipart: true, class: 'dropzone'  }) do |f| %>
+<div class="dz-message" data-dz-message><span><%= t('upload_image') %></span></div>
+  <% @ad_images.each do |photo| %>
+    <div class="profile-ad-images">
+      <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
+        <div class="dz-image">
+          <%= image_tag(photo.image.url(:thumb)) %>
+        </div>
+      </div>
+      <%= link_to t('remove_file'), "javascript:void(0)", class: 'dz-remove', id: "dz-remove-#{photo.id}", onclick: "removeImage(#{photo.id})" %>
+    </div>  
+  <% end %>    
+<% end %>  

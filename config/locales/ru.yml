@@ -1,5 +1,30 @@
 ru:
+  upload_image: Нажмите, чтобы добавить изображения
+  remove_file: Удалить
+  title: Заголовок
+  content: Описание
+  forgot_your_password: Забыли пароль?
+  remember_me: Запомнить меня
+  log_in: Вход на сайт
+  sign_up: Зарегистрироваться
+  password_confirmation: Подтвердите еще раз пароль
+  password: Пароль
+  expired_ads: Архив
+  current_ads: Текущие объявления 
+  expire_day: Дейстует до
+  price: Цена
+  category: Категория
+  period: Срок действия
+  select_category: Выберите категорию
+  are_you_sure: Вы уверены?
+  save_ad: Подать объявление
+  edit_ad: Редактировать объявление
+  new_ad: Новое объявление
   language: Выберите язык
+  my_ads: Мои объявления
+  my_money: Мои деньги
+  profile_config: Настройки профиля
+  my_masseges: Мои сообщения
   home: Главная
   sign_in: Войти
   sign_out: Выйти
@@ -13,6 +38,7 @@ ru:
   phone: Телефон
   edit: Редактировать
   back: Назад
+  destroy: Удалить
   profile_title: Заполненность профиля
   profile_info: Необходимо заполнить профиль, чтобы иметь возможность подать объявление
   editing_profile: Редактирование профиля
@@ -22,6 +48,7 @@ ru:
   phone: Телефон
   select_country: Выберите страну
   select_region: Выберите регион/область
+  select_city: Выберите город
 
   activerecord:
     errors:

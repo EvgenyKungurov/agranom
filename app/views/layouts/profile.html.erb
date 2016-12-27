@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Agropolis</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript">// Immediately after the js include
+      Dropzone.autoDiscover = false;
+    </script>
+  </head>
+
+  <body>
+    <%= render 'layouts/header' %>
+    <div class="content">
+      <%= render 'layouts/dashboard_nav' %>
+      <div class="col-md-9 col-sm-9 col-lg-9">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

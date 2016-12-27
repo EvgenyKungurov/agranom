@@ -2,7 +2,6 @@
 
 <div class="profile-info">
 <p id="notice"><%= notice %></p>
-<h4><%= t('profile_title') %></h4>
 <p><%= t('profile_info') %></p>
 <div class="progress">
   <%= content_tag :div, nil, class: "progress-bar progress-bar-success progress-bar-striped active", role: "progressbar", 'aria-valuenow': "#{@progress_bar}", 'aria-valuemin': "0", 'aria-valuemax': "100", style: "width: #{@progress_bar}%" %>
@@ -18,7 +17,7 @@
     <div class="panel-heading">
       <h3 class="panel-title"><%= t('city') %></h3>
     </div>
-    <div class="panel-body"><%= @profile.city.name %></div> 
+    <div class="panel-body"><%= @profile.city_name %></div> 
   </div>
   <div class="panel panel-info"> 
     <div class="panel-heading">

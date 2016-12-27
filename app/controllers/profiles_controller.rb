@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @progress_bar = ProgressBar.new(@profile).generate
+    @progress_bar = ProgressBar.new(@profile).call
   end
 
   # GET /profiles/new
@@ -45,21 +45,10 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # DELETE /profiles/1
-  # DELETE /profiles/1.json
-  def destroy
-    @profile.destroy
-    respond_to do |format|
-      format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_profile
-    # @profile = Profile.where(user_id: current_user.id)
     @profile = Profile.where(user_id: current_user.id).first
   end
 
@@ -68,5 +57,9 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(
       :name, :city_id, phones_attributes: [:id, :number, :country_code, :profile_id]
     )
+  end
+
+  def user_profile?
+    redirect_to root_path unless current_user.profile.id == @profile.id
   end
 end

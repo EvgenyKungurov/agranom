@@ -21,6 +21,10 @@
 
 en:
   language: Choose language
+  my_ads: My ads
+  my_money: My money
+  profile_config: Profile configuration
+  my_masseges: My masseges
   hello: Welcome to the Agropolis! Here you will find all information about agricultural sector
   home: Home
   sign_in: Sign_in

@@ -4,5 +4,5 @@
   <h1><%= t('editing_profile') %></h1>
   <%= render 'form', profile: @profile %>
   <%= link_to t('show'), @profile %> |
-  <%= link_to t('back'), profile_path(current_user.profile.id) %> 
+  <%= link_to t('back'), profile_path(current_user.profile) %> 
 </div>

@@ -1,11 +1,11 @@
-<div class="dashboard-nav">
+<div class="dashboard-nav col-sm-3 col-md-2 sidebar">
   <div class="list-group">
     <a href="#" class="list-group-item  active">
       <%= t('dashboard')  %>
     </a>
-    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-    <a href="#" class="list-group-item">Morbi leo risus</a>
-    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-    <a href="#" class="list-group-item">Vestibulum at eros</a>
+    <%= link_to t('my_ads'), profile_ads_path(current_user.profile), class: "list-group-item" %>
+    <a href="#" class="list-group-item"><%= t('my_masseges') %></a>
+    <a href="#" class="list-group-item"><%= t('my_money') %></a>
+    <a href="#" class="list-group-item"><%= t('profile_config') %></a>
   </div>
 </div>

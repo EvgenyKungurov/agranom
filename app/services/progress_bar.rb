@@ -4,7 +4,7 @@ class ProgressBar
     @profile = profile
   end
 
-  def generate
+  def call
     @progress_bar = 0
     @progress_bar += 40 unless @profile.phones.empty?
     [:name, :city_id].each do |method|
