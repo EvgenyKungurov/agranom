@@ -1,22 +1,6 @@
 // Place all the styles related to the profiles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.dropzone .dz-preview .dz-image {
-  height: 100% !important;
-  overflow: visible !important;
-}
-
-.dropzone .dz-preview:hover .dz-image img {
-  -webkit-transform: scale(1, 1) !important;
-  -webkit-filter: blur(0px) !important;
-}
-
-.dropzone .dz-preview:active .dz-image img {
-  -webkit-transform: scale(2, 2) !important;
-  -webkit-filter: blur(0px) !important;
-}
-
 .dropzone .dz-preview .dz-error-message {
     top: 150px!important;
 }

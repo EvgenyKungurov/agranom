@@ -7,7 +7,7 @@
   <%= @ad.content  %>
   <div id="links"> 
     <% @ad.photos.each do |photo| %>
-      <%= link_to image_tag(photo.image.url(:thumb)), photo.image.url(:medium),  data: { gallery: '' } %>    
+      <%= link_to image_tag(photo.image.url(:thumb)), photo.image.url,  data: { gallery: '' } %>    
     <% end %>
   </div>
 </div>

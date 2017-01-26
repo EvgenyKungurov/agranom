@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   before_action :user_profile?, except: [:new, :find_city]
 
   def find_city
-    @find_city_service = FindCityService.new(params)
+    @find_city_service = FindCity.new(params)
     @result = @find_city_service.find
     @type_of_request = @find_city_service.type_of_request
 

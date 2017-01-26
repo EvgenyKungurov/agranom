@@ -120,18 +120,23 @@ a:focus {
 }
 
 .navbar-default {
-	background: #c52f24;
+	background: #5CB85C;
 	border-color: transparent;
 }
 
 .dropdown-menu {
-	background: #c52f24;
+	background: #449d44;
 }
 
 .dropdown-menu > li > a {
 	color: white;
 	font-weight: 700;
 	font-size: 12px;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  background-color: #FFFFFF;
+  color: #555;
 }
 
 .mtb {
@@ -445,6 +450,13 @@ csmall2 {
   border-color: #8c8c8c;
 }
 
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+  height: 140%;
+}
+
+.input-group-btn:first-child > .btn, .input-group-btn:first-child > .btn-group {
+  height: 140%;
+}
 
 .profile-info {
 	width: 40%;

@@ -5,7 +5,11 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(photo_params)
-    render json: { message: 'success uploaded', photo_id: @photo.id } if @photo.save
+    if @photo.save
+      render json: { message: 'success uploaded', photo_id: @photo.id }
+    else
+      render json: { message: 'upload error', error: @photo.errors }
+    end
   end
 
   def destroy

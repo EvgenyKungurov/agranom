@@ -1,11 +1,16 @@
 class Profiles::AdsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_ad, except: [:index, :new, :create, :archive]
+  before_action :set_ad, except: [:index, :new, :create, :archive, :find_category]
   before_action :set_locale
-  before_action :user_ad?, except: [:index, :new, :create, :archive]
+  before_action :user_ad?, except: [:index, :new, :create, :archive, :find_category]
   before_action :set_variables, only: [:edit, :create, :new, :update]
 
   layout 'profile'
+
+  def find_category
+    @categories = FindCategory.new(params).find
+    render json: { categories: @categories }
+  end
 
   def index
     @ads = Ad.where(user_id: current_user.id).active

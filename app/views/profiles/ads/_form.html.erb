@@ -13,7 +13,10 @@
 
   <div class="field">
     <%= f.label t(:category) %>
-    <%= f.select 'category_id', options_from_collection_for_select(@categories, "id", "name", ad.category_id || '0'), { include_blank: t('select_category') }, class: 'form-control', required: true %>
+    <div id="category_list">
+      <%= hidden_field_tag 'ad[category_id]', '', id: 'selected_category' %>
+      <%= select_tag 'category_id', options_from_collection_for_select(@categories, "id", "name", ad.category_id || '0'), class: 'select_category', id: 'ad_category_id', required: true, size: "#{@categories.size}" %>
+    </div>
   </div>
 
   <div class="field">
@@ -48,7 +51,6 @@
 
 </br> 
 <%= form_for(Photo.new, html: { multipart: true, class: 'dropzone'  }) do |f| %>
-<div class="dz-message" data-dz-message><span><%= t('upload_image') %></span></div>
   <% @ad_images.each do |photo| %>
     <div class="profile-ad-images">
       <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
