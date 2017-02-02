@@ -13,10 +13,15 @@
 
   <div class="field">
     <%= f.label t(:category) %>
-    <div id="category_list">
-      <%= hidden_field_tag 'ad[category_id]', '', id: 'selected_category' %>
-      <%= select_tag 'category_id', options_from_collection_for_select(@categories, "id", "name", ad.category_id || '0'), class: 'select_category', id: 'ad_category_id', required: true, size: "#{@categories.size}" %>
-    </div>
+    <% if ad.category_dump.present? %>
+      <div id="category_list">
+        <%= ad.category_dump.html_safe %>
+      </div>  
+    <% else %>  
+      <div id="category_list">
+        <%= select_tag 'category_id', options_from_collection_for_select(@categories, "id", "name", ad.category_id || '0'), class: 'select_category', id: 'ad_category_id', required: true, size: "#{@categories.size}" %>
+      </div>
+    <% end %>
   </div>
 
   <div class="field">
@@ -41,6 +46,8 @@
 
   <div class="field">
     <%= hidden_field_tag :uploaded_images, '', id: 'uploaded_images' %>
+    <%= hidden_field_tag 'ad[category_id]', '', id: 'selected_category' %>
+    <%= hidden_field_tag 'ad[category_dump]', '', id: 'category_dump' %>
   </div>
 
   <div class="actions">

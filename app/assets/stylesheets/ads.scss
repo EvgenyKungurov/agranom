@@ -16,7 +16,11 @@ label.error {
 }
 
 .select_category {
-  border-radius: 4px;
   overflow: hidden;
   padding: 5px;
+  float: left;
+}
+
+.field {
+  clear: both;
 }

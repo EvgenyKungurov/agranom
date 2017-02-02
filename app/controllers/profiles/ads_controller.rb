@@ -21,7 +21,6 @@ class Profiles::AdsController < ApplicationController
   end
 
   def new
-    @categories = Category.all
     @ad = Ad.new
   end
 
@@ -88,13 +87,14 @@ class Profiles::AdsController < ApplicationController
   def set_variables
     @ad_images = Photo.where(ad_id: @ad.id) if @ad
     @ad_images ||= Photo.none
-    @categories = Category.all
+    @categories = Category.roots
     @cities = Region.find(current_user.profile.city.region.id).cities
   end
 
   def ad_params
     params.require(:ad).permit(
-      :title, :content, :category_id, :city_id, :price, :avatar
+      :title, :content, :category_id, :city_id,
+      :price, :avatar, :category_dump
     ).merge(user_id: current_user.id)
   end
 
