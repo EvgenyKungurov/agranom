@@ -25,49 +25,68 @@ $(document).on "turbolinks:load", ->
       dataType: "script"
 
   $('#ad_category_id').on "change", ->
-    $('#selected_category').val(this.value)
-    $('.select_category option[value=' + this.value + ']').attr('selected', 'selected')
-    $('#category_dump').val($('#category_list').html())
+    removeAttrSelected(this.id)
+    assignSelectedCategory(this.value)
+    addAttrSelectedToCategory(this.value)
+    dumpSelectedCategory()
     $.ajax
       url: "find_category"
       type: "GET" 
       data: 'category_id=' + $('#ad_category_id option:selected').val() + ';'
       success: (response) ->
-        subcategory_count = $('.select_category').size()
-        $('[id^="subcategory"]').remove()
-        $('#category_list').append(
-          "<select required=required id=subcategory_#{subcategory_count} class=select_category 
-          size=#{subcategory_count + 1}>"
-        ) 
-        $.each response['categories'], (index, value) -> 
-          $("#subcategory_#{subcategory_count}").append($("<option></option>")
-            .attr("value", value['id'])
-            .text(value['name']))
+        addSelectWithInputs(response)
 
 $(document).on 'change', '[id^="subcategory"]', ->
-  $('#' + this.id + ' option[selected="selected"').removeAttr('selected')
-  $('#' + this.id + ' option[value=' + this.value + ']').attr('selected', 'selected')
-  $('#category_dump').val($('#category_list').html())
+  removeAttrSelected(this.id)
+  addAttrSelectedToCategory(this.value)
+  dumpSelectedCategory()
   category_id = this.id
-  subcategory_count = $('.select_category').size() + 1
+  subcategory_count = $('.select_category').size()
   selected_category = $('#' + category_id + ' option:selected').val()
-  $('#selected_category').val(selected_category)
+  assignSelectedCategory(selected_category)
   $.ajax
     url: "find_category"
     type: "GET" 
     data: 'category_id=' + $('#' + category_id + ' option:selected').val() + ';'
     success: (response) ->
-      response_id = $(response['categories'])[0].id.toString()
-      response_size = $(response['categories']).size() + 1
-      find_exist_category_sublist = $('.select_category').last().find('option[value="' + response_id + '"]').val() != response_id
-      if $('.select_category').last().attr('id') != category_id
-        $('.select_category').last().remove()
-      if response_size > 0 && selected_category != response_id && find_exist_category_sublist
-          $('#category_list').append(
-            "<select required=required id=subcategory_#{subcategory_count} class=select_category 
-            size=#{response_size}>"
-          )  
-          $.each response['categories'], (index, value) -> 
-            $("#subcategory_#{subcategory_count}").append($("<option></option>")
-              .attr("value", value['id'])
-              .text(value['name']))
+      addSelectWithInputsToSubdomain(response, category_id, subcategory_count)
+
+@assignSelectedCategory = (value) ->
+  $('#selected_category').val(value)
+
+@addAttrSelectedToCategory = (value) ->
+  $('.select_category option[value=' + value + ']').attr('selected', 'selected')
+
+@dumpSelectedCategory = () ->
+  $('#category_dump').val($('#category_list').html())
+
+@addSelectWithInputs = (response) -> 
+  $('[id^="subcategory"]').remove()
+  subcategory_count = $('.select_category').size()
+  $('#category_list').append(
+    "<select required=required id=subcategory_#{subcategory_count} class=select_category 
+    size=#{subcategory_count + 1}>"
+  ) 
+  $.each response['categories'], (index, value) -> 
+    $("#subcategory_#{subcategory_count}").append($("<option></option>")
+      .attr("value", value['id'])
+      .text(value['name']))
+
+@removeAttrSelected = (value) ->
+  $('#' + value + ' option[selected="selected"').removeAttr('selected')  
+
+@addSelectWithInputsToSubdomain = (response, category_id, subcategory_count) ->
+  response_id = $(response['categories'])[0].id.toString()
+  response_size = $(response['categories']).size() + 1
+  find_exist_category_sublist = $('.select_category').last().find('option[value="' + response_id + '"]').val() != response_id
+  if $('.select_category').last().attr('id') != category_id
+    $('.select_category').last().remove()
+  if response_size > 0 && selected_category != response_id && find_exist_category_sublist
+      $('#category_list').append(
+        "<select required=required id=subcategory_#{subcategory_count} class=select_category 
+        size=#{response_size}>"
+      )  
+      $.each response['categories'], (index, value) -> 
+        $("#subcategory_#{subcategory_count}").append($("<option></option>")
+          .attr("value", value['id'])
+          .text(value['name']))

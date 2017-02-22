@@ -1,4 +1,7 @@
 class Ad < ApplicationRecord
+  include PgSearch
+  multisearchable against: :title
+
   belongs_to :user
   belongs_to :category
   has_many :photos
@@ -7,6 +10,7 @@ class Ad < ApplicationRecord
   validates :content, :user_id, :category_id, :city_id, :price, presence: true
 
   before_save :set_expire_day
+  after_save  :pg_search_rebuild
 
   scope :active, -> { where('expire_day >= ?', Time.zone.now) }
   scope :not_active, -> { where('expire_day < ?', Time.zone.now) }
@@ -15,5 +19,9 @@ class Ad < ApplicationRecord
 
   def set_expire_day
     self.expire_day = Time.zone.now + 1.month
+  end
+
+  def pg_search_rebuild
+    PgSearch::Multisearch.rebuild(self.class)
   end
 end

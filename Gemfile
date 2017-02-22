@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0'
 # Use pg as the database for Active Record
 gem 'pg'
+gem 'pg_search'
 # Very simple Roles library
 gem 'rolify'
 # Use Puma as the app server

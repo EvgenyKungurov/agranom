@@ -1,5 +1,5 @@
 class AdsController < ApplicationController
-  before_action :set_ad, except: [:index]
+  before_action :set_ad, except: [:index, :search]
   before_action :set_locale
 
   def index
