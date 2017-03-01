@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Profile, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:user) }
+  it { should belong_to(:city) }
+  it { should have_many(:phones).dependent(:destroy) }
+  it { should accept_nested_attributes_for(:phones) }
 end

@@ -1,16 +1,10 @@
 FactoryGirl.define do
   factory :photo do
-    
   end
+
   factory :ad do
-    before(:create) do |ad|
-      category = FactoryGirl.create(:category)
-      country  = FactoryGirl.create(:country)
-      region   = FactoryGirl.create(:region, country_id: country.id)
-      city     = FactoryGirl.create(:city, region_id: region.id)
-      ad.category_id = category.id
-      ad.city_id     = city.id
-    end
+    category_id 1
+    city_id 1
     title 'MyString'
     content 'MyText'
     price 1200
@@ -40,20 +34,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    factory :user1 do
-      email 'user@example.com'
-      password 'secret'
-      after(:create) do |user|
-        create(:ad, user_id: user.id)
-      end
-    end
-    factory :user2 do
-      email 'user_with_ad@example.com'
-      password 'secret'
-      after(:create) do |user|
-        create(:ad, user_id: user.id)
-      end
-    end
+    email 'user@example.com'
+    password 'secret'
   end
 
   factory :article do

@@ -4,12 +4,12 @@ class Ad < ApplicationRecord
 
   belongs_to :user
   belongs_to :category
-  has_many :photos
+  has_many :photos, dependent: :destroy
 
   validates :title, length: { minimum: 6 }, presence: true
   validates :content, :user_id, :category_id, :city_id, :price, presence: true
 
-  before_save :set_expire_day
+  before_save :set_expire_day, if: :new_record?
   after_save  :pg_search_rebuild
 
   scope :active, -> { where('expire_day >= ?', Time.zone.now) }

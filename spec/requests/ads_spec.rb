@@ -1,14 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Ads', type: :request do
-  let!(:user) { FactoryGirl.create :user1 }
-  let!(:ad_user1) { user.ads.first }
-  let!(:another_user) { FactoryGirl.create :user2 }
-  let!(:ad_user2) { another_user.ads.first }
+  let!(:category) { FactoryGirl.create :category }
+  let!(:user) { FactoryGirl.create :user }
+  let!(:user_ad) do
+    FactoryGirl.create(:ad, user_id: user.id, category_id: category.id)
+  end
+  let!(:another_user) { FactoryGirl.create(:user, email: 'test@ex.com') }
+  let!(:another_user_ad) do
+    FactoryGirl.create(:ad, user_id: user.id, category_id: category.id)
+  end
   let!(:ad_params) { FactoryGirl.attributes_for(:ad) }
 
   def sign_in(user)
-    user = { 'user[email]' => user.email, 'user[password]' => user.password }
+    user = { 'user[email]': user.email, 'user[password]': user.password }
     post new_user_session_path, params: user
   end
 
@@ -20,97 +25,127 @@ RSpec.describe 'Ads', type: :request do
   end
 
   describe 'GET #new' do
-    it 'should be available for user' do
-      sign_in(user)
-      get new_profile_ad_path(user)
-      expect(response).to have_http_status(200)
+    context 'user logged' do
+      it 'should be available' do
+        sign_in(user)
+        get new_profile_ad_path(user)
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it 'should not be available for anonymous' do
-      get new_profile_ad_path(user.profile)
-      expect(response).to redirect_to new_user_session_path
-    end
-  end
-
-  describe 'GET #edit' do
-    it 'should not be available for other users' do
-      sign_in(user)
-      get edit_profile_ad_path(user.profile, fake_ad)
-      expect(response).to redirect_to root_path(locale: :ru)
-    end
-
-    it 'should not be available for anonymous' do
-      get edit_profile_ad_path(user.profile, fake_ad)
-      expect(response).to redirect_to new_user_session_path
-    end
-
-    it 'should be available for user' do
-      sign_in(user)
-      get edit_profile_ad_path(user.profile, ad)
-      expect(response).to have_http_status(200)
+    context 'anonymous' do
+      it 'should not be available' do
+        get new_profile_ad_path(user.profile)
+        expect(response).to redirect_to new_user_session_path
+      end
     end
   end
 
   describe 'GET #show' do
-    it 'should be available for user' do
-      get profile_ad_path(user.profile, ad)
-      expect(response).to have_http_status(200)
+    context 'owner' do
+      it 'should be available' do
+        get profile_ad_path(user.profile, user_ad)
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it 'should not be available for users' do
-      get profile_ad_path(user.profile, ad)
-      expect(response).to have_http_status(200)
+    context 'not owner' do
+      it 'should not be available' do
+        get profile_ad_path(user.profile, user_ad)
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    context 'not owner' do
+      it 'should not be available' do
+        sign_in(user)
+        get edit_profile_ad_path(user.profile, another_user_ad)
+        expect(response).to redirect_to root_path(locale: :ru)
+      end
+    end
+
+    context 'anonymous' do
+      it 'should not be available' do
+        get edit_profile_ad_path(user.profile, another_user_ad)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'owner' do
+      it 'should be available' do
+        sign_in(user)
+        get edit_profile_ad_path(user.profile, user_ad)
+        expect(response).to have_http_status(200)
+      end
     end
   end
 
   describe '#destroy' do
-    it 'should not be available for other users' do
-      sign_in(user)
-      delete '/profiles/ads/#{fake_ad.id}', {}
-      expect(response).to redirect_to root_path(locale: :ru)
+    context 'not owner' do
+      it 'should not be available' do
+        sign_in(user)
+        delete '/profiles/ads/#{another_user_ad.id}', params: {}
+        expect(response).to redirect_to root_path(locale: :ru)
+      end
     end
 
-    it 'should not be available for anonymous' do
-      delete "/profiles/ads/#{user.ads.first.id}", {}
-      expect(response).to redirect_to new_user_session_path
+    context 'anonymous' do
+      it 'should not be available' do
+        delete "/profiles/ads/#{user.ads.first.id}", params: {}
+        expect(response).to redirect_to new_user_session_path
+      end
     end
 
-    it 'should be available to owner of ad' do
-      sign_in(user)
-      delete "/profiles/ads/#{user.ads.first.id}", {}
-      expect(response).to redirect_to profile_ads_path
+    context 'owner' do
+      it 'should be available' do
+        sign_in(user)
+        delete "/profiles/ads/#{user.ads.first.id}", params: {}
+        expect(response).to redirect_to profile_ads_path
+      end
     end
   end
 
   describe '#update' do
-    it 'should not be available for other users' do
-      sign_in(user)
-      patch "/profiles/ads/#{fake_ad.id}", {}
-      expect(response).to redirect_to root_path(locale: :ru)
+    context 'not owner' do
+      it 'should not be available' do
+        sign_in(user)
+        patch "/profiles/ads/#{another_user_ad.id}", params: {}
+        expect(response).to redirect_to root_path(locale: :ru)
+      end
     end
 
-    it 'should not be available for anonymous' do
-      patch "/profiles/ads/#{fake_ad.id}", {}
-      expect(response).to redirect_to new_user_session_path
+    context 'anonymous' do
+      it 'should not be available' do
+        patch "/profiles/ads/#{another_user_ad.id}", params: {}
+        expect(response).to redirect_to new_user_session_path
+      end
     end
 
-    it 'should be available to owner of ad' do
-      sign_in(user)
-      patch "/profiles/ads/#{user.ads.first.id}", ad: ad_params
-      expect(page).to have_content article.title
+    context 'owner' do
+      it 'should be available' do
+        sign_in(user)
+        patch "/profiles/ads/#{user.ads.first.id}", params: { ad: ad_params }
+        expect(page).to have_content article.title
+      end
     end
   end
 
   describe '#create' do
-    it 'should not be available for anonymous' do
-      post profile_ads_path(user), ad: ad_params
-      expect(response).to redirect_to new_user_session_path
+    context 'anonymous' do
+      it 'should not be available' do
+        post profile_ads_path(user), params: { ad: ad_params }
+        expect(response).to redirect_to new_user_session_path
+      end
     end
 
-    it 'should be available users' do
-      sign_in(user)
-      post profile_ads_path(user), ad: ad_params
-      expect(page).to redirect_to profile_ad_path(current_user.ads.last)
+    context 'logged user' do
+      it 'should be available users' do
+        sign_in(user)
+        post profile_ads_path(user), params: { ad: ad_params }
+        expect(page).to redirect_to profile_ad_path(current_user.ads.last)
+      end
     end
   end
 end

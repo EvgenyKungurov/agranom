@@ -9,7 +9,7 @@ RSpec.feature 'Rails admin', type: :feature do
     click_button 'Войти'
   end
 
-  let!(:user) { FactoryGirl.create :user1 }
+  let!(:user) { FactoryGirl.create :user }
   let!(:article) { FactoryGirl.create :article }
   let!(:article_params) { FactoryGirl.attributes_for(:article) }
 

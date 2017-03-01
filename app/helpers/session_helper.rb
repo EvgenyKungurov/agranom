@@ -12,4 +12,8 @@ module SessionHelper
   def can_do_it?
     current_user&.has_role? :admin
   end
+
+  def current_user
+    super || GuestUser.new
+  end
 end
