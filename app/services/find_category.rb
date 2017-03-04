@@ -2,11 +2,11 @@
 class FindCategory
   attr_reader :category_id
 
-  def initialize(params)
-    @category_id = params.fetch(:category_id, '')
+  def initialize(options = {})
+    @category_id = options.fetch(:category_id, '')
   end
 
-  def find
+  def call
     return Category.all if @category_id.empty?
 
     if Category.find(@category_id).children.size.zero?

@@ -9,6 +9,21 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
+      <div class="field" >
+          <%= label :country, t('select_country') %>
+          <%= select_tag :country_id, options_from_collection_for_select(@countries, 'id', 'name'), include_blank: t('select_country'), class: 'form-control', id: 'select_country', required: true %>
+        </div>
+
+      <div class="field">
+        <%= label :region, t('select_region') %>
+        <%= select_tag :region_id, '', class: 'form-control', id: 'select_region', required: true %>
+      </div>
+
+      <div class="field" >
+        <%= label :city, t('city') %>
+        <%= f.select :city_id, '', {}, class: 'form-control', id: 'select_city', required: true %>
+      </div>
+
       <div class="field">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, class: 'form-control' %>

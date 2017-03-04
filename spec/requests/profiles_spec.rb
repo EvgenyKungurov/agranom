@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Profiles', type: :request do
-  let(:user) { FactoryGirl.create :user }
+  let!(:country) { FactoryGirl.create :country }
+  let!(:region) { FactoryGirl.create(:region, country_id: country.id) }
+  let!(:city) { FactoryGirl.create(:city, region_id: region.id) }
+  let(:user) { FactoryGirl.create(:user, city_id: city.id) }
   let!(:profile_params) { FactoryGirl.attributes_for(:profile) }
   let!(:fake_profile) { FactoryGirl.create :profile }
 

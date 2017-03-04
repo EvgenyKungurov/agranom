@@ -26,7 +26,6 @@ FactoryGirl.define do
   factory :profile do
     name nil
     user nil
-    city nil
   end
 
   factory :category do

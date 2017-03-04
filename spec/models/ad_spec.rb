@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Ad, type: :model do
-  let!(:user) { FactoryGirl.create :user }
+  let!(:city) { FactoryGirl.create :city }
+  let!(:user) { FactoryGirl.create(:user, city_id: city.id) }
   let!(:category) { FactoryGirl.create :category }
   subject { FactoryGirl.build(:ad, user_id: user.id, category_id: category.id) }
 

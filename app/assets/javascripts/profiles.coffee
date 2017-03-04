@@ -8,33 +8,50 @@ $(document).on "turbolinks:load", ->
     $('#select_city').empty()
     
     $.ajax
-      url: "find_city"
+      url: "/find_city"
       type: "GET" 
       data: 'get_id=' + $('#select_country option:selected').val() + ';' + 
-        'type_of_request=select_region' 
-      dataType: "script"  
+        'type_of_request=select_region'
 
   $('#select_region').change ->
     $('#select_city').empty()
     
     $.ajax
-      url: "find_city"
+      url: "/find_city"
       type: "GET" 
       data: 'get_id=' + $('#select_region option:selected').val() + ';' + 
         'type_of_request=select_city'
-      dataType: "script"
 
+  $('#ad_city_id').change ->
+    if $('#ad_city_id option[value=""]')
+      $('#ad_city_id option[value=""]').attr('value', 0)
+    if this.value == '0'
+      $('#popup_select_city').find("select").val('')
+      $('#popup_select_city').modal('show')
+
+      
   $('#ad_category_id').on "change", ->
     removeAttrSelected(this.id)
     assignSelectedCategory(this.value)
     addAttrSelectedToCategory(this.value)
     dumpSelectedCategory()
     $.ajax
-      url: "find_category"
+      url: "/find_category"
       type: "GET" 
       data: 'category_id=' + $('#ad_category_id option:selected').val() + ';'
       success: (response) ->
         addSelectWithInputs(response)
+
+  @popupSelectCity = () ->
+    $('#popup_select_city').submit ->
+      alert 'OK'
+      value = $('#select_city').find(":selected").val()
+      name = $('#select_city').find(":selected").text()
+      $('#ad_city_id option[selected="selected"').removeAttr('selected')
+      $('#email option:first').after($('<option />', { "value": value, text: 'My new option', class: 'new_address_mail' }));
+      $('#ad_city_id option:first').after($('<option />', { "value": '', "selected": "selected", text: name}))
+      $('#popup_select_city').modal('hide')     
+      return false
 
 $(document).on 'change', '[id^="subcategory"]', ->
   removeAttrSelected(this.id)
@@ -45,7 +62,7 @@ $(document).on 'change', '[id^="subcategory"]', ->
   selected_category = $('#' + category_id + ' option:selected').val()
   assignSelectedCategory(selected_category)
   $.ajax
-    url: "find_category"
+    url: "/find_category"
     type: "GET" 
     data: 'category_id=' + $('#' + category_id + ' option:selected').val() + ';'
     success: (response) ->

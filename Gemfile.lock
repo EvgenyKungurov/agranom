@@ -77,6 +77,9 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-validator-rails (0.5.3)
+      jquery-rails (>= 3.0)
+      railties (>= 3.0)
     builder (3.2.2)
     byebug (9.0.5)
     capybara (2.7.1)
@@ -336,6 +339,7 @@ DEPENDENCIES
   Bootstrap-Image-Gallery-rails
   awesome_nested_set
   bootstrap-sass
+  bootstrap-validator-rails
   byebug
   capybara
   ckeditor!

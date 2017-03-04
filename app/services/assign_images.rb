@@ -2,7 +2,7 @@
 class AssignImages
   def initialize(ad_id, options = {})
     @ad_id = ad_id
-    @images_id = options.fetch :uploaded_images
+    @images_id = options.fetch(:uploaded_images, '')
   end
 
   def call

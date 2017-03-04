@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'should be able sign in', type: :request do
-  let(:user) { FactoryGirl.create :user }
+  let!(:city) { FactoryGirl.create :city }
+  let(:user) { FactoryGirl.create(:user, city_id: city.id) }
 
   def sign_in(user)
     visit sign_in_path
     fill_in 'user[email]', with: user.email
     fill_in 'user[password]', with: user.password
-    click_button 'Log in'
+    click_button 'Войти'
   end
 
   it 'should be load sign_in' do

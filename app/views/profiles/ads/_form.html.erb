@@ -31,7 +31,7 @@
 
   <div class="field">
     <%= f.label t(:city) %>
-    <%= f.select :city_id, options_from_collection_for_select(@cities, 'id', 'name', current_user.profile.city_id || '0'), { include_blank: t('select_city')}, class: 'form-control' %>
+    <%= f.select :city_id, options_from_collection_for_select(@cities, 'id', 'name', current_user.city_id || '0'), { include_blank: t('select_city')}, class: 'form-control' %>
   </div>
 
   <div class="field">
@@ -69,3 +69,5 @@
     </div>  
   <% end %>    
 <% end %>  
+
+<%= render 'find_cities/show'  %>

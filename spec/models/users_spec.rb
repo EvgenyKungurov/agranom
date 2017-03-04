@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { FactoryGirl.build :user }
+  let!(:city) { FactoryGirl.create :city }
+  subject { FactoryGirl.build(:user, city_id: city.id) }
 
   it { should have_one(:profile).dependent(:destroy) }
   it { should have_many(:ads).dependent(:destroy) }
   it { should have_many(:photos).dependent(:destroy) }
+  it { should belong_to(:city) }
+  it { should validate_presence_of(:city_id) }
 
   describe 'after_create' do
     it 'should invoke #create_user_profile method' do

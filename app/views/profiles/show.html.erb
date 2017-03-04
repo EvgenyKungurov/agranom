@@ -3,10 +3,6 @@
 <div class="profile-info">
 <p id="notice"><%= notice %></p>
 <p><%= t('profile_info') %></p>
-<div class="progress">
-  <%= content_tag :div, nil, class: "progress-bar progress-bar-success progress-bar-striped active", role: "progressbar", 'aria-valuenow': "#{@progress_bar}", 'aria-valuemin': "0", 'aria-valuemax': "100", style: "width: #{@progress_bar}%" %>
-</div>
-
   <div class="panel panel-info"> 
     <div class="panel-heading">
       <h3 class="panel-title"><%= t('your_name')  %></h3>
@@ -17,13 +13,7 @@
     <div class="panel-heading">
       <h3 class="panel-title"><%= t('city') %></h3>
     </div>
-    <div class="panel-body"><%= @profile.city_name %></div> 
-  </div>
-  <div class="panel panel-info"> 
-    <div class="panel-heading">
-      <h3 class="panel-title"><%= t('phone') %></h3>
-    </div>
-    <div class="panel-body"><%= @profile.phones.map(&:number).join(',') %></div> 
+    <div class="panel-body"><%= @profile.user.city.name %></div> 
   </div>
 <%= link_to t('edit'), edit_profile_path(@profile), class: 'btn btn-success' %> 
 </div>

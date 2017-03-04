@@ -46,9 +46,10 @@ ru:
   name: Имя
   city: Город
   phone: Телефон
+  select: Выбрать
   select_country: Выберите страну
   select_region: Выберите регион/область
-  select_city: Выберите город
+  select_city: Выбрать другой город
 
   activerecord:
     errors:
