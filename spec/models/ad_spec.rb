@@ -30,12 +30,16 @@ RSpec.describe Ad, type: :model do
       subject.save!
       expect(subject.expire_day).to eq require_date + 1.month
     end
-  end
 
-  describe 'after_save' do
-    it 'should invoke #pg_search_rebuild method' do
-      expect(subject).to receive(:pg_search_rebuild)
+    it 'should invoke #save_slug_attribute method' do
+      expect(subject).to receive(:save_slug_attribute)
       subject.save!
+    end
+
+    it 'should #save_slug_attribute method return translite name' do
+      subject.save!
+      expect(subject.slug)
+        .to eq Translit.convert(subject.title).downcase.split.join('-')
     end
   end
 

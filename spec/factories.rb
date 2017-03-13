@@ -5,7 +5,7 @@ FactoryGirl.define do
   factory :ad do
     category_id 1
     city_id 1
-    title 'MyString'
+    title 'Продам комбайн т-800'
     content 'MyText'
     price 1200
   end

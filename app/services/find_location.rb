@@ -1,5 +1,5 @@
-# Find city and pass this in js
-class FindCity
+# Find location and pass this in js
+class FindLocation
   attr_reader :type_of_request
 
   def initialize(options = {})

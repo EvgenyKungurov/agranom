@@ -17,12 +17,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :photos
+  resources :photos, only: [:create, :destroy]
   resources :articles
-  resources :ads do
-    get 'search', to: 'ads/search', on: :collection
-  end
 
+  get '/ads(/:location)(/:category)', to: 'ads#index', as: 'ads'
+  get '/ads/:location/:category/:id', to: 'ads#show', as: 'ad'
   get 'find_city', to: 'find_cities#show'
   get 'find_category', to: 'find_categories#show'
+  post 'search', to: 'ads#search'
 end

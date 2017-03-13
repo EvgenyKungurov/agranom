@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0'
+gem 'rails'
 gem 'bootstrap-validator-rails'
 # Use pg as the database for Active Record
 gem 'pg'
 gem 'pg_search'
+# Transliterate cyrillic
+gem 'translit'
 # Very simple Roles library
 gem 'rolify'
 # Use Puma as the app server

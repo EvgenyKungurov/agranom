@@ -7,11 +7,4 @@ RSpec.describe Category, type: :model do
   it { should validate_length_of(:name).is_at_least 3 }
 
   it { should have_many(:ads) }
-
-  describe 'after_save' do
-    it 'should invoke #pg_search_rebuild method' do
-      expect(subject).to receive(:pg_search_rebuild)
-      subject.save!
-    end
-  end
 end

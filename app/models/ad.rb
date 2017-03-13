@@ -1,6 +1,6 @@
 class Ad < ApplicationRecord
   include PgSearch
-  multisearchable against: :title
+  pg_search_scope :search, against: [:title, :content]
 
   belongs_to :user
   belongs_to :category
@@ -10,18 +10,22 @@ class Ad < ApplicationRecord
   validates :content, :user_id, :category_id, :city_id, :price, presence: true
 
   before_save :set_expire_day, if: :new_record?
-  after_save  :pg_search_rebuild
+  before_save :save_slug_attribute
 
   scope :active, -> { where('expire_day >= ?', Time.zone.now) }
   scope :not_active, -> { where('expire_day < ?', Time.zone.now) }
 
+  def to_param
+    "#{id}-#{slug}"
+  end
+
   private
+
+  def save_slug_attribute
+    self.slug = Translit.convert(title).downcase.split.join('-')
+  end
 
   def set_expire_day
     self.expire_day = Time.zone.now + 1.month
-  end
-
-  def pg_search_rebuild
-    PgSearch::Multisearch.rebuild(self.class)
   end
 end

@@ -1,9 +1,12 @@
 <%= form_tag 'search', method: :get, class: 'search_form' do %>
   <div class="input-group">
     <div class="input-group-btn">
-      <%= select_tag "category", options_from_collection_for_select(@categories, "id", "name", "1"),prompt: "Все категории", class: "btn btn-default" %>
+      <%= select_tag "category_id", options_from_collection_for_select(@categories, "id", "name", "1"),prompt: "Все категории", class: "btn btn-default" %>
     </div> 
     <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Поиск...' %>
+    <div class="input-group-btn">
+      <%= select_tag "location_id", options_from_collection_for_select(City.all, "id", "name", "1"),prompt: "Все категории", class: "btn btn-default" %>
+    </div> 
     <span class="input-group-btn">
       <%= submit_tag "Поиск", class: "btn btn-default" %>
     </span>   
