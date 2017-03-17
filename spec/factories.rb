@@ -4,23 +4,14 @@ FactoryGirl.define do
 
   factory :ad do
     category_id 1
-    city_id 1
+    location_id 1
     title 'Продам комбайн т-800'
     content 'MyText'
     price 1200
   end
 
-  factory :city do
+  factory :location do
     name 'Чита'
-  end
-
-  factory :region do
-    name 'Забайкальский край'
-  end
-
-  factory :country do
-    name 'Россия'
-    short_name 'RU'
   end
 
   factory :profile do

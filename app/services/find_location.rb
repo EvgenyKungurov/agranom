@@ -3,17 +3,16 @@ class FindLocation
   attr_reader :type_of_request
 
   def initialize(options = {})
-    @id = options.fetch(:get_id, '')
-    @type_of_request = options.fetch(:type_of_request, '')
+    @id = options.fetch(:location_id, '')
   end
 
   def call
-    return [] if @id.empty? || @type_of_request.empty?
+    return [] if @id.empty?
 
-    if @type_of_request == 'select_region'
-      Country.find(@id).regions
+    if Location.find(@id).children_count.positive?
+      Location.find(@id).children
     else
-      Region.find(@id).cities
+      Location.where(id: @id)
     end
   end
 end

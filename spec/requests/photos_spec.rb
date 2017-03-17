@@ -1,13 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Photos', type: :request do
-  let!(:category) { FactoryGirl.create :category }
-  let!(:country) { FactoryGirl.create :country }
-  let!(:region) { FactoryGirl.create(:region, country_id: country.id) }
-  let!(:city) { FactoryGirl.create(:city, region_id: region.id) }
-  let!(:user) { FactoryGirl.create(:user, city_id: city.id) }
+  let!(:country) { FactoryGirl.create(:location, name: 'Россия') }
+  let!(:region) do
+    FactoryGirl.create(
+      :location, name: 'Забайкальский край', parent_id: country.id
+    )
+  end
+  let!(:city) do
+    FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
+  end
+  let!(:user) { FactoryGirl.create(:user, location_id: city.id) }
   let!(:user_photo) { FactoryGirl.create(:photo, user_id: user.id) }
-  let!(:user2) { FactoryGirl.create(:user, email: ' test@example.com', city_id: city.id) }
+  let!(:user2) { FactoryGirl.create(:user, email: ' test@example.com', location_id: city.id) }
   let!(:image) { { image: fixture_file_upload('public/rspec_test.jpg', 'image/jpg') } }
 
   def sign_in(user)

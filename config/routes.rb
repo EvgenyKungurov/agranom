@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   get '/ads(/:location)(/:category)', to: 'ads#index', as: 'ads'
   get '/ads/:location/:category/:id', to: 'ads#show', as: 'ad'
-  get 'find_city', to: 'find_cities#show'
+  get 'find_location', to: 'find_location#show'
   get 'find_category', to: 'find_categories#show'
   post 'search', to: 'ads#search'
 end

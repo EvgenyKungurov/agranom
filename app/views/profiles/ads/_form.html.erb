@@ -29,9 +29,11 @@
     <%= f.text_field :price, class: 'form-control', required: true, type: "number" %>
   </div>
 
-  <div class="field">
-    <%= f.label t(:city) %>
-    <%= f.select :city_id, options_from_collection_for_select(@cities, 'id', 'name', current_user.city_id || '0'), { include_blank: t('select_city')}, class: 'form-control' %>
+  <div class="location">
+    <div class="field">
+      <%= f.label t(:city) %>
+      <%= f.select :location_id, options_from_collection_for_select(@cities, 'id', 'name', current_user.location_id || '0'), { include_blank: t('select_city')}, class: 'form-control' %>
+    </div>
   </div>
 
   <div class="field">
@@ -70,4 +72,4 @@
   <% end %>    
 <% end %>  
 
-<%= render 'find_cities/show'  %>
+<%= render 'find_location/show'  %>

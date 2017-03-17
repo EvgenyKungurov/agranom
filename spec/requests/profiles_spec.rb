@@ -1,10 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Profiles', type: :request do
-  let!(:country) { FactoryGirl.create :country }
-  let!(:region) { FactoryGirl.create(:region, country_id: country.id) }
-  let!(:city) { FactoryGirl.create(:city, region_id: region.id) }
-  let(:user) { FactoryGirl.create(:user, city_id: city.id) }
+  let!(:country) { FactoryGirl.create(:location, name: 'Россия') }
+  let!(:region) do
+    FactoryGirl.create(
+      :location, name: 'Забайкальский край', parent_id: country.id
+    )
+  end
+  let!(:city) do
+    FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
+  end
+  let(:user) { FactoryGirl.create(:user, location_id: city.id) }
   let!(:profile_params) { FactoryGirl.attributes_for(:profile) }
   let!(:fake_profile) { FactoryGirl.create :profile }
 

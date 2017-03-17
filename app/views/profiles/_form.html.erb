@@ -16,19 +16,11 @@
     <%= f.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field" >
-    <%= f.label t('select_country') %>
-    <%= f.select :country_id, options_from_collection_for_select(@countries, 'id', 'name'), { include_blank: t('select_country'), selected: '0'}, class: 'form-control', id: 'select_country' %>
-  </div>
-
-  <div class="field" >
-    <%= f.label t('select_region') %>
-    <%= f.select :region_id, "<option>#{current_user.city.region.name}</option>".html_safe, { selected: '0'}, class: 'form-control', id: 'select_region' %>
-  </div>
-
-  <div class="field" >
-    <%= f.label t('city') %>
-    <%= f.select :city_id, "<option value = #{current_user.city.id}>#{current_user.city.name}</option>".html_safe, { selected: '0'}, class: 'form-control', id: 'select_city' %>
+  <div id="location">
+    <div class="field" >
+      <%= f.label t('select_country') %>
+      <%= f.select :country_id, options_from_collection_for_select(@countries, 'id', 'name'), { include_blank: t('select_country'), selected: '0'}, class: 'form-control', id: 'select_country' %>
+    </div>
   </div>
 
   <div class="field">

@@ -1,8 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Ad, type: :model do
-  let!(:city) { FactoryGirl.create :city }
-  let!(:user) { FactoryGirl.create(:user, city_id: city.id) }
+  let!(:country) { FactoryGirl.create(:location, name: 'Россия') }
+  let!(:region) do
+    FactoryGirl.create(
+      :location, name: 'Забайкальский край', parent_id: country.id
+    )
+  end
+  let!(:city) do
+    FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
+  end
+  let!(:user) { FactoryGirl.create(:user, location_id: city.id) }
   let!(:category) { FactoryGirl.create :category }
   subject { FactoryGirl.build(:ad, user_id: user.id, category_id: category.id) }
 
@@ -11,7 +19,7 @@ RSpec.describe Ad, type: :model do
   it { should validate_presence_of(:content) }
   it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:category_id) }
-  it { should validate_presence_of(:city_id) }
+  it { should validate_presence_of(:location_id) }
   it { should validate_presence_of(:price) }
 
   it { should belong_to(:user) }

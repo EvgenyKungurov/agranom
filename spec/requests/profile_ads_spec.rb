@@ -2,23 +2,29 @@ require 'rails_helper'
 
 RSpec.describe 'Ads', type: :request do
   let!(:category) { FactoryGirl.create :category }
-  let!(:country) { FactoryGirl.create :country }
-  let!(:region) { FactoryGirl.create(:region, country_id: country.id) }
-  let!(:city) { FactoryGirl.create(:city, region_id: region.id) }
+  let!(:country) { FactoryGirl.create(:location, name: 'Россия') }
+  let!(:region) do
+    FactoryGirl.create(
+      :location, name: 'Забайкальский край', parent_id: country.id
+    )
+  end
+  let!(:city) do
+    FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
+  end
 
-  let!(:user) { FactoryGirl.create(:user, city_id: city.id) }
+  let!(:user) { FactoryGirl.create(:user, location_id: city.id) }
   let!(:user_ad) do
     FactoryGirl.create(:ad, user_id: user.id, category_id: category.id)
   end
 
   let!(:another_user) do
-    FactoryGirl.create(:user, email: 'test@ex.com', city_id: city.id)
+    FactoryGirl.create(:user, email: 'test@ex.com', location_id: city.id)
   end
   let!(:another_user_ad) do
     FactoryGirl.create(:ad, user_id: another_user.id, category_id: category.id)
   end
   let!(:ad_params) do
-    { category_id: category.id, city_id: city.id, title: 'MyString',
+    { category_id: category.id, location_id: city.id, title: 'Мой заголовок',
       content: 'MyText', price: 1200 }
   end
 
@@ -132,7 +138,7 @@ RSpec.describe 'Ads', type: :request do
         sign_in(user)
         patch profile_ad_path(user, user_ad.id), params: { ad: ad_params }
         expect(response).to redirect_to profile_ad_path(
-          user.profile.id, user_ad, locale: :ru
+          user.profile.id, user.ads.last, locale: :ru
         )
       end
     end

@@ -1,8 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe 'should be able sign in', type: :request do
-  let!(:city) { FactoryGirl.create :city }
-  let(:user) { FactoryGirl.create(:user, city_id: city.id) }
+  let!(:country) { FactoryGirl.create(:location, name: 'Россия') }
+  let!(:region) do
+    FactoryGirl.create(
+      :location, name: 'Забайкальский край', parent_id: country.id
+    )
+  end
+  let!(:city) do
+    FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
+  end
+  let(:user) { FactoryGirl.create(:user, location_id: city.id) }
 
   def sign_in(user)
     visit sign_in_path

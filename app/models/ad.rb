@@ -7,7 +7,7 @@ class Ad < ApplicationRecord
   has_many :photos, dependent: :destroy
 
   validates :title, length: { minimum: 6 }, presence: true
-  validates :content, :user_id, :category_id, :city_id, :price, presence: true
+  validates :content, :user_id, :category_id, :location_id, :price, presence: true
 
   before_save :set_expire_day, if: :new_record?
   before_save :save_slug_attribute

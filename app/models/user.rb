@@ -4,9 +4,9 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :ads, dependent: :destroy
   has_many :photos, dependent: :destroy
-  belongs_to :city
+  belongs_to :location
 
-  validates :city_id, presence: true
+  validates :location_id, presence: true
 
   rolify
   # Include default devise modules. Others available are:

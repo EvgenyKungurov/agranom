@@ -15,13 +15,13 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @countries = Country.all
+    @countries = Location.roots
   end
 
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-    @countries = Country.all
+    @countries = Location.roots
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }

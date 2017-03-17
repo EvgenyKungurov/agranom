@@ -4,7 +4,7 @@ class AdsController < ApplicationController
 
   def index
     @categories = Category.roots
-    Ad.search
+    # Ad.search
   end
 
   # GET /ads/1

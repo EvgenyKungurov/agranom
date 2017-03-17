@@ -9,8 +9,16 @@ RSpec.feature 'Rails admin', type: :feature do
     click_button 'Войти'
   end
 
-  let!(:city) { FactoryGirl.create :city }
-  let(:user) { FactoryGirl.create(:user, city_id: city.id) }
+  let!(:country) { FactoryGirl.create(:location, name: 'Россия') }
+  let!(:region) do
+    FactoryGirl.create(
+      :location, name: 'Забайкальский край', parent_id: country.id
+    )
+  end
+  let!(:city) do
+    FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
+  end
+  let(:user) { FactoryGirl.create(:user, location_id: city.id) }
   let!(:article) { FactoryGirl.create :article }
   let!(:article_params) { FactoryGirl.attributes_for(:article) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313044933) do
+ActiveRecord::Schema.define(version: 20170313132657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170313044933) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "price"
-    t.integer  "city_id"
+    t.integer  "location_id"
     t.datetime "expire_day"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -54,14 +54,6 @@ ActiveRecord::Schema.define(version: 20170313044933) do
     t.index ["rgt"], name: "index_categories_on_rgt", using: :btree
   end
 
-  create_table "cities", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "region_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["region_id"], name: "index_cities_on_region_id", using: :btree
-  end
-
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
@@ -78,11 +70,17 @@ ActiveRecord::Schema.define(version: 20170313044933) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
-  create_table "countries", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "short_name"
+  create_table "locations", force: :cascade do |t|
+    t.string  "name"
+    t.string  "slug"
+    t.integer "parent_id"
+    t.integer "lft",                        null: false
+    t.integer "rgt",                        null: false
+    t.integer "depth",          default: 0, null: false
+    t.integer "children_count", default: 0, null: false
+    t.index ["lft"], name: "index_locations_on_lft", using: :btree
+    t.index ["parent_id"], name: "index_locations_on_parent_id", using: :btree
+    t.index ["rgt"], name: "index_locations_on_rgt", using: :btree
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -123,14 +121,6 @@ ActiveRecord::Schema.define(version: 20170313044933) do
     t.integer  "city_id"
   end
 
-  create_table "regions", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_regions_on_country_id", using: :btree
-  end
-
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.string   "resource_type"
@@ -154,7 +144,7 @@ ActiveRecord::Schema.define(version: 20170313044933) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "city_id"
+    t.integer  "location_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
