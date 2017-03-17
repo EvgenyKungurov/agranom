@@ -54,15 +54,13 @@ $(document).on "turbolinks:load", ->
             .attr("value", value['id'])
             .text(value['name']))
 
-
   $('#ad_location_id').change ->
     if $('#ad_location_id option[value=""]')
       $('#ad_location_id option[value=""]').attr('value', 0)
     if this.value == '0'
       $('#popup_select_city').find("select").val('')
       $('#popup_select_city').modal('show')
-
-      
+  
   $('#ad_category_id').on "change", ->
     removeAttrSelected(this.id)
     assignSelectedCategory(this.value)
@@ -114,14 +112,15 @@ $(document).on 'change', '[id^="subcategory"]', ->
 @addSelectWithInputs = (response) -> 
   $('[id^="subcategory"]').remove()
   subcategory_count = $('.select_category').size()
-  $('#category_list').append(
-    "<select required=required id=subcategory_#{subcategory_count} class=select_category 
-    size=#{subcategory_count + 1}>"
-  ) 
-  $.each response['categories'], (index, value) -> 
-    $("#subcategory_#{subcategory_count}").append($("<option></option>")
-      .attr("value", value['id'])
-      .text(value['name']))
+  if response['children_count'] > 0 && response['categories'][0]['children_count'] == 0
+    $('#category_list').append(
+      "<select required=required id=subcategory_#{subcategory_count} class=select_category 
+      size=#{subcategory_count + 1}>"
+    ) 
+    $.each response['categories'], (index, value) -> 
+      $("#subcategory_#{subcategory_count}").append($("<option></option>")
+        .attr("value", value['id'])
+        .text(value['name']))
 
 @removeAttrSelected = (value) ->
   $('#' + value + ' option[selected="selected"').removeAttr('selected')  

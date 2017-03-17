@@ -1,6 +1,7 @@
 class FindCategoriesController < ApplicationController
   def show
-    @categories = FindCategory.new(params).call
-    render json: { categories: @categories }
+    @result = FindCategory.new(params).call
+    @children_count = Category.find(params[:category_id])&.children_count
+    render json: { categories: @result, children_count: @children_count }
   end
 end

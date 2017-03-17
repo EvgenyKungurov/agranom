@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313132657) do
+ActiveRecord::Schema.define(version: 20170317070634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170313132657) do
     t.integer "rgt",                        null: false
     t.integer "depth",          default: 0, null: false
     t.integer "children_count", default: 0, null: false
+    t.string  "slug"
     t.index ["lft"], name: "index_categories_on_lft", using: :btree
     t.index ["parent_id"], name: "index_categories_on_parent_id", using: :btree
     t.index ["rgt"], name: "index_categories_on_rgt", using: :btree

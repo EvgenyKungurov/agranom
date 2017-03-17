@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
 
   factory :location do
-    name 'Чита'
+    name 'Россия'
   end
 
   factory :profile do

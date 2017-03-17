@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
-  let(:country) { FactoryGirl.build(:location, name: 'Россия') }
   subject { FactoryGirl.build :location }
 
   it { should validate_presence_of(:name) }
@@ -21,10 +20,10 @@ RSpec.describe Location, type: :model do
     end
 
     it 'should #parent_count_increase +1' do
-      country.save!
-      count = country.children_count
-      country.children.create!(name: 'Забайкальский край')
-      expect(country.children_count).to eq count + 1
+      subject.save!
+      count = subject.children_count
+      subject.children.create!(name: 'Забайкальский край')
+      expect(subject.children_count).to eq count + 1
     end
   end
 
@@ -35,11 +34,11 @@ RSpec.describe Location, type: :model do
     end
 
     it 'should #parent_count_decrease -1' do
-      country.save!
-      count = country.children_count
-      country.children.create!(name: 'Забайкальский край')
-      country.children.destroy_all
-      expect(Location.find(country.id).children_count).to eq count
+      subject.save!
+      count = subject.children_count
+      subject.children.create!(name: 'Забайкальский край')
+      subject.children.destroy_all
+      expect(Location.find(subject.id).children_count).to eq count
     end
   end
 end
