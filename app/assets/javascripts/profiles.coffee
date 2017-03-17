@@ -27,32 +27,32 @@ $(document).on "turbolinks:load", ->
             .attr("value", value['id'])
             .text(value['name']))
 
-  $(document).on 'change', '[id^="location_child"]', ->
-    children_count = parseInt($('[id^="location_child"]').size())
-    current_child  = parseInt($($('#' + this.id).attr('id').split('_')).last()[0])
-    for i in [current_child + 1..children_count + 1]
-      $("#location_child_#{i}").remove()
-    $.ajax
-      url: "/find_location"
-      type: "GET" 
-      data: 'location_id=' + $('#' + this.id).val() + ';'
-      success: (response) ->
-        children_count_html = $('[id^="location_child"]').size() + 1
-        if response['children_count'] > 0 && response['locations'][0]['children_count'] == 0
-          $('#location').append(
-            "<select name=user[location_id] id=location_child_#{children_count_html} class=form-control required=required></select>"
-          )
-        if response['children_count'] > 0 && response['locations'][0]['children_count'] > 0
-          $('#location').append(
-            "<select id=location_child_#{children_count_html} class=form-control required=required></select>"
-          )
-        $.each response['locations'], (index, value) ->
-          $("#location_child_#{children_count_html}").append($("<option></option>")
-            .attr('value', '')
-            .text('Выберите место проживания'))
-          $("#location_child_#{children_count_html}").append($("<option></option>")
-            .attr("value", value['id'])
-            .text(value['name']))
+$(document).on 'change', '[id^="location_child"]', ->
+  children_count = parseInt($('[id^="location_child"]').size())
+  current_child  = parseInt($($('#' + this.id).attr('id').split('_')).last()[0])
+  for i in [current_child + 1..children_count + 1]
+    $("#location_child_#{i}").remove()
+  $.ajax
+    url: "/find_location"
+    type: "GET" 
+    data: 'location_id=' + $('#' + this.id).val() + ';'
+    success: (response) ->
+      children_count_html = $('[id^="location_child"]').size() + 1
+      if response['children_count'] > 0 && response['locations'][0]['children_count'] == 0
+        $('#location').append(
+          "<select name=user[location_id] id=location_child_#{children_count_html} class=form-control required=required></select>"
+        )
+      if response['children_count'] > 0 && response['locations'][0]['children_count'] > 0
+        $('#location').append(
+          "<select id=location_child_#{children_count_html} class=form-control required=required></select>"
+        )
+      $.each response['locations'], (index, value) ->
+        $("#location_child_#{children_count_html}").append($("<option></option>")
+          .attr('value', '')
+          .text('Выберите место проживания'))
+        $("#location_child_#{children_count_html}").append($("<option></option>")
+          .attr("value", value['id'])
+          .text(value['name']))
 
   $('#ad_location_id').change ->
     if $('#ad_location_id option[value=""]')
@@ -76,7 +76,6 @@ $(document).on "turbolinks:load", ->
   @popupSelectCity = () ->
     children_count = $('[id^="location_child"]').size()
     $('#popup_select_city').submit ->
-      alert 'OK'
       value = $("#location_child_#{children_count}").find(":selected").val()
       name  = $("#location_child_#{children_count}").find(":selected").text()
       $('#ad_location_id option[selected="selected"').removeAttr('selected')
@@ -88,9 +87,7 @@ $(document).on "turbolinks:load", ->
 $(document).on 'change', '[id^="subcategory"]', ->
   removeAttrSelected(this.id)
   addAttrSelectedToCategory(this.value)
-  dumpSelectedCategory()
   category_id = this.id
-  subcategory_count = $('.select_category').size()
   selected_category = $('#' + category_id + ' option:selected').val()
   assignSelectedCategory(selected_category)
   $.ajax
@@ -98,7 +95,9 @@ $(document).on 'change', '[id^="subcategory"]', ->
     type: "GET" 
     data: 'category_id=' + $('#' + category_id + ' option:selected').val() + ';'
     success: (response) ->
-      addSelectWithInputsToSubdomain(response, category_id, subcategory_count)
+      addSelectWithInputsToSubdomain(response, category_id)
+      dumpSelectedCategory()
+
 
 @assignSelectedCategory = (value) ->
   $('#selected_category').val(value)
@@ -112,7 +111,7 @@ $(document).on 'change', '[id^="subcategory"]', ->
 @addSelectWithInputs = (response) -> 
   $('[id^="subcategory"]').remove()
   subcategory_count = $('.select_category').size()
-  if response['children_count'] > 0 && response['categories'][0]['children_count'] == 0
+  if response['children_count'] > 0
     $('#category_list').append(
       "<select required=required id=subcategory_#{subcategory_count} class=select_category 
       size=#{subcategory_count + 1}>"
@@ -125,18 +124,20 @@ $(document).on 'change', '[id^="subcategory"]', ->
 @removeAttrSelected = (value) ->
   $('#' + value + ' option[selected="selected"').removeAttr('selected')  
 
-@addSelectWithInputsToSubdomain = (response, category_id, subcategory_count) ->
+@addSelectWithInputsToSubdomain = (response, category_id) ->
   response_id = $(response['categories'])[0].id.toString()
   response_size = $(response['categories']).size() + 1
-  find_exist_category_sublist = $('.select_category').last().find('option[value="' + response_id + '"]').val() != response_id
+  subcategory_count = $('.select_category').size()
+  
   if $('.select_category').last().attr('id') != category_id
     $('.select_category').last().remove()
-  if response_size > 0 && selected_category != response_id && find_exist_category_sublist
-      $('#category_list').append(
-        "<select required=required id=subcategory_#{subcategory_count} class=select_category 
-        size=#{response_size}>"
-        )  
-      $.each response['categories'], (index, value) -> 
-        $("#subcategory_#{subcategory_count}").append($("<option></option>")
-          .attr("value", value['id'])
-          .text(value['name']))
+  if response['children_count'] > 0 && response['categories'][0]['children_count'] == 0
+    
+    $('#category_list').append(response
+      "<select required=required id=subcategory_#{subcategory_count} class=select_category 
+      size=#{response_size}>"
+      )  
+    $.each response['categories'], (index, value) -> 
+      $("#subcategory_#{subcategory_count}").append($("<option></option>")
+        .attr("value", value['id'])
+        .text(value['name']))
