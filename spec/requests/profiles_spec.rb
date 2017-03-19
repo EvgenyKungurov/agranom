@@ -11,7 +11,9 @@ RSpec.describe 'Profiles', type: :request do
     FactoryGirl.create(:location, name: 'Чита', parent_id: region.id)
   end
   let(:user) { FactoryGirl.create(:user, location_id: city.id) }
-  let!(:profile_params) { FactoryGirl.attributes_for(:profile) }
+  let!(:profile_params) do
+    FactoryGirl.attributes_for(:profile)
+  end
   let!(:fake_profile) { FactoryGirl.create :profile }
 
   def sign_in(user)
@@ -71,7 +73,8 @@ RSpec.describe 'Profiles', type: :request do
 
     it 'should be available for current_user' do
       sign_in(user)
-      patch "/profiles/#{user.profile.id}", params: { profile: profile_params }
+      params = { profile: profile_params }.merge(user: { location_id: city.id })
+      patch "/profiles/#{user.profile.id}", params: params
       expect(response).to redirect_to profile_path(user.profile.id, locale: :ru)
     end
   end

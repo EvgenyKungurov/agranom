@@ -14,20 +14,20 @@ RSpec.describe 'FindLocation' do
   describe FindLocation do
     it 'should return empty array without params' do
       result = FindLocation.new.call
-      expect(result).to eq []
+      expect(result.locations).to eq []
     end
 
     it 'should return one location without children' do
       options = { location_id: city.id.to_s }
       result = FindLocation.new(options).call
-      expect(result).to eq city
+      expect(result.locations.first).to eq city
     end
 
     it 'should return children collection' do
       options = { location_id: region.id.to_s }
       result = FindLocation.new(options).call
       children = region.children
-      expect(result).to eq children
+      expect(result.locations).to eq children
     end
   end
 end

@@ -34,3 +34,4 @@ $(document).on "turbolinks:load", ->
           return
       return $('#dz-remove-' + id).parent().remove()
   return
+  

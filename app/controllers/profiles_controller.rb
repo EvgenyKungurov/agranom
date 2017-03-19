@@ -42,11 +42,10 @@ class ProfilesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_params
-    params.require(:profile).permit(
-      :name, :city_id, phones_attributes: [
-        :id, :number, :country_code, :profile_id
-      ]
-    )
+    params.require(:profile).permit(:name)
+          .merge(
+            user_attributes: { location_id: params.dig(:user, :location_id) }
+          )
   end
 
   def user_profile?

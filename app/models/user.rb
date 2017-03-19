@@ -7,6 +7,7 @@ class User < ApplicationRecord
   belongs_to :location
 
   validates :location_id, presence: true
+  validates_confirmation_of :password, :password_confirmation, on: :create
 
   rolify
   # Include default devise modules. Others available are:

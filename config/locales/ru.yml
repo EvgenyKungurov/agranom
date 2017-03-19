@@ -50,6 +50,7 @@ ru:
   select_country: Выберите страну
   select_region: Выберите регион/область
   select_city: Выбрать другой город
+  close_ad: Закрыть объявление
 
   activerecord:
     errors:

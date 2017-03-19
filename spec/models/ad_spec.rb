@@ -49,6 +49,16 @@ RSpec.describe Ad, type: :model do
       expect(subject.slug)
         .to eq Translit.convert(subject.title).downcase.split.join('-')
     end
+
+    it 'should invoke #set_status method' do
+      expect(subject).to receive(:set_status)
+      subject.save!
+    end
+
+    it 'should #set_status method return active' do
+      subject.save!
+      expect(subject.status).to eq 1
+    end
   end
 
   describe 'scope methods' do
@@ -69,6 +79,7 @@ RSpec.describe Ad, type: :model do
       require_date = Time.zone.now
       allow(Time.zone).to receive(:now) { require_date - 1.month - 1.day }
       subject.save!
+      subject.update_attributes!(status: 0)
       allow(Time.zone).to receive(:now).and_call_original
       expect(Ad.not_active.first).to eq subject
     end

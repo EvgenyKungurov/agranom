@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317070634) do
+ActiveRecord::Schema.define(version: 20170318063407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20170317070634) do
     t.datetime "avatar_updated_at"
     t.text     "category_dump"
     t.string   "slug"
+    t.integer  "status"
     t.index ["category_id"], name: "index_ads_on_category_id", using: :btree
     t.index ["user_id"], name: "index_ads_on_user_id", using: :btree
   end

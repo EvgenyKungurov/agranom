@@ -5,6 +5,7 @@ gem 'rails'
 gem 'bootstrap-validator-rails'
 # Use pg as the database for Active Record
 gem 'pg'
+gem 'database_cleaner'
 gem 'pg_search'
 # Transliterate cyrillic
 gem 'translit'
@@ -65,6 +66,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'rspec-rails', '~> 3.5'
   gem 'guard-rspec', require: false
   gem 'shoulda-matchers', '~> 3.1'

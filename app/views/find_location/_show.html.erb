@@ -11,7 +11,7 @@
         <div id="location">
           <div class="field" >
             <%= label_tag t('select_country') %>
-            <%= select_tag :country_id, options_from_collection_for_select(@countries, 'id', 'name'), include_blank: t('select_country'), selected: '0', class: 'form-control', id: 'select_country' %>
+            <%= select_tag :country_id, options_from_collection_for_select(@countries, 'id', 'name'), include_blank: t('select_country'), selected: '0', class: 'form-control', id: 'select_country', required: true %>
           </div>
         </div>
 

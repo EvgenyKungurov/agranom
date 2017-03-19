@@ -71,10 +71,6 @@ class Profiles::AdsController < ApplicationController
 
   private
 
-  def check_user_profile
-    redirect_to edit
-  end
-
   def set_ad
     @ad = Ad.find(params[:id])
   end
