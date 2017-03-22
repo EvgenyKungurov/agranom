@@ -74,6 +74,7 @@ GEM
       execjs
     awesome_nested_set (3.1.1)
       activerecord (>= 4.0.0, < 5.1)
+    babosa (1.0.2)
     bcrypt (3.1.11)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -125,6 +126,8 @@ GEM
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
     formatador (0.2.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     guard (2.14.1)
@@ -312,7 +315,6 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.6)
     tilt (2.0.6)
-    translit (0.1.5)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -344,6 +346,7 @@ PLATFORMS
 DEPENDENCIES
   Bootstrap-Image-Gallery-rails
   awesome_nested_set
+  babosa
   bootstrap-sass
   bootstrap-validator-rails
   byebug
@@ -354,6 +357,7 @@ DEPENDENCIES
   devise
   dropzonejs-rails
   factory_girl_rails
+  friendly_id (~> 5.1.0)
   guard
   guard-rails
   guard-rspec
@@ -376,7 +380,6 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   spring
   spring-watcher-listen (~> 2.0.0)
-  translit
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)

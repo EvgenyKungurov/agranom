@@ -51,6 +51,8 @@ ru:
   select_region: Выберите регион/область
   select_city: Выбрать другой город
   close_ad: Закрыть объявление
+  enable_ad: Активировать объявление
+  select_location: Выберите местоположение
 
   activerecord:
     errors:

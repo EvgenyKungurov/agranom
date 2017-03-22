@@ -1,14 +1,26 @@
-<%= form_tag 'search', method: :get, class: 'search_form' do %>
+<%= form_tag search_path, class: 'search_form' do %>
   <div class="input-group">
     <div class="input-group-btn">
-      <%= select_tag "category_id", options_from_collection_for_select(@categories, "id", "name", "1"),prompt: "Все категории", class: "btn btn-default" %>
+      <select name="category_id" id="ad_category_id" class="btn btn-default"    required="required">
+        <% @categories.each do |relation| %>
+          <%= "<option class='root-category' value=#{relation.first.id}>#{relation.first.name}</option>".html_safe %>
+          <% relation[1..-1].each do |category| %>
+            <%= "<option value=#{category.id}>#{category.name}</option>".html_safe %>
+          <% end %>
+      <% end %>
+      </select>
     </div> 
     <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Поиск...' %>
     <div class="input-group-btn">
-      <%= select_tag "location_id", options_from_collection_for_select(Location.all, "id", "name", "1"),prompt: "Все категории", class: "btn btn-default" %>
+      <div class="location">
+        <%= label_tag t(:city) %>
+        <%= select_tag :location_id, options_from_collection_for_select(Location.roots, 'id', 'name', '1'), include_blank: t('select_location'), class: "btn btn-default", id: 'ad_location_id' %>
+      </div>
     </div> 
     <span class="input-group-btn">
       <%= submit_tag "Поиск", class: "btn btn-default" %>
     </span>   
   </div>
 <% end %>
+
+<%= render 'find_location/show' %>

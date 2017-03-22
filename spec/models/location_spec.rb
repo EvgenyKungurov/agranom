@@ -5,10 +5,22 @@ RSpec.describe Location, type: :model do
 
   it { should validate_presence_of(:name) }
   it { should validate_length_of(:name).is_at_least 2 }
+  it { should have_many(:ads) }
 
   describe 'before_save' do
     it 'should invoke #name_capitalize' do
       expect(subject).to receive(:name_capitalize)
+      subject.save!
+    end
+
+    it 'should #normalize_friendly_id return russian translite' do
+      subject.save!
+      slug = subject.name.to_slug.normalize(transliterations: :russian).to_s
+      expect(subject.slug).to eq slug
+    end
+
+    it 'should invoke #update_slug' do
+      expect(subject).to receive(:update_slug)
       subject.save!
     end
   end

@@ -7,8 +7,9 @@ gem 'bootstrap-validator-rails'
 gem 'pg'
 gem 'database_cleaner'
 gem 'pg_search'
+gem 'friendly_id', '~> 5.1.0'
 # Transliterate cyrillic
-gem 'translit'
+gem 'babosa'
 # Very simple Roles library
 gem 'rolify'
 # Use Puma as the app server

@@ -72,7 +72,7 @@ class Profiles::AdsController < ApplicationController
   private
 
   def set_ad
-    @ad = Ad.find(params[:id])
+    @ad = Ad.friendly.find(params[:id])
   end
 
   def set_variables
@@ -86,7 +86,7 @@ class Profiles::AdsController < ApplicationController
   def ad_params
     params.require(:ad).permit(
       :title, :content, :category_id, :location_id,
-      :price, :avatar, :category_dump
+      :price, :avatar, :category_dump, :status
     ).merge(user_id: current_user.id)
   end
 

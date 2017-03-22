@@ -24,6 +24,7 @@ RSpec.describe Ad, type: :model do
 
   it { should belong_to(:user) }
   it { should belong_to(:category) }
+  it { should belong_to(:location) }
   it { should have_many(:photos).dependent(:destroy) }
 
   describe 'before_save' do
@@ -39,17 +40,6 @@ RSpec.describe Ad, type: :model do
       expect(subject.expire_day).to eq require_date + 1.month
     end
 
-    it 'should invoke #save_slug_attribute method' do
-      expect(subject).to receive(:save_slug_attribute)
-      subject.save!
-    end
-
-    it 'should #save_slug_attribute method return translite name' do
-      subject.save!
-      expect(subject.slug)
-        .to eq Translit.convert(subject.title).downcase.split.join('-')
-    end
-
     it 'should invoke #set_status method' do
       expect(subject).to receive(:set_status)
       subject.save!
@@ -58,6 +48,17 @@ RSpec.describe Ad, type: :model do
     it 'should #set_status method return active' do
       subject.save!
       expect(subject.status).to eq 1
+    end
+
+    it 'should #normalize_friendly_id return russian translite' do
+      subject.save!
+      slug = subject.title.to_slug.normalize(transliterations: :russian).to_s
+      expect(subject.slug).to eq slug
+    end
+
+    it 'should invoke #update_slug' do
+      expect(subject).to receive(:update_slug)
+      subject.save!
     end
   end
 

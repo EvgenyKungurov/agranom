@@ -26,8 +26,10 @@
         <h4><%= "#{t('price')}: #{ad.price}" %></h4> 
         <h4>
       </div>
-      <div class="col-md-2">  
+      <div class="col-md-5">  
         <%= link_to t('edit'), edit_profile_ad_path(current_user.profile, ad) %>
+        <%= link_to t('enable_ad'), profile_ad_path(current_user.profile, ad, ad: { status: 1 }),
+          method: :patch, data: { confirm: t('are_you_sure') } %> 
         <%= link_to t('destroy'), profile_ad_path(current_user.profile, ad),
           method: :delete, data: { confirm: t('are_you_sure') } %>
       </div>    

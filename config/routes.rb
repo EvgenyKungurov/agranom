@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   resources :photos, only: [:create, :destroy]
   resources :articles
 
-  get '/ads(/:location)(/:category)', to: 'ads#index', as: 'ads'
-  get '/ads/:location/:category/:id', to: 'ads#show', as: 'ad'
+  get '/ads(/:location_id)(/:category_id)', to: 'ads#index', as: 'ads'
+  get '/ads/:location_id(/:category_id)/:id', to: 'ads#show', as: 'ad'
   get 'find_location', to: 'find_location#show'
   get 'find_category', to: 'find_categories#show'
   post 'search', to: 'ads#search'

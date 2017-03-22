@@ -15,15 +15,15 @@ RSpec.describe Category, type: :model do
       subject.save!
     end
 
-    it 'should invoke #save_slug_attribute method' do
-      expect(subject).to receive(:save_slug_attribute)
+    it 'should #normalize_friendly_id return russian translite' do
       subject.save!
+      slug = subject.name.to_slug.normalize(transliterations: :russian).to_s
+      expect(subject.slug).to eq slug
     end
 
-    it 'should #save_slug_attribute method return translite name' do
+    it 'should invoke #update_slug' do
+      expect(subject).to receive(:update_slug)
       subject.save!
-      expect(subject.slug)
-        .to eq Translit.convert(subject.name).downcase.split.join('-')
     end
   end
 

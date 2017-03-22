@@ -41,10 +41,11 @@ $(document).on 'change', '[id^="subcategory"]', ->
 @addSelectWithInputs = (response) -> 
   $('[id^="subcategory"]').remove()
   subcategory_count = $('.select_category').size()
+  response_size = $(response['categories']).size() + 1
   if response['children_count'] > 0
     $('#category_list').append(
       "<select required=required id=subcategory_#{subcategory_count} class=select_category 
-      size=#{subcategory_count + 1}>"
+      size=#{response_size}>"
     ) 
     $.each response['categories'], (index, value) -> 
       $("#subcategory_#{subcategory_count}").append($("<option></option>")

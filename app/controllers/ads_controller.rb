@@ -1,34 +1,29 @@
 class AdsController < ApplicationController
-  before_action :set_ad, except: [:index, :search]
   before_action :set_locale
 
   def index
-    @categories = Category.roots
-    # Ad.search
+    @categories = Category.roots.map(&:self_and_descendants)
+    @countries  = Location.roots
+    @result = FindAds.new(search_params).call
   end
 
   # GET /ads/1
   # GET /ads/1.json
   def show
-    Ad.search(params[:search]).where(search_params)
-    redirect_to ads_path
+    @ad = Ad.friendly.find(search_params[:id])
   end
 
   def search
-    type_of_request = search_params.fetch(:type_of_request)
-    get_id = search_params.fetch(:location_id)
-    location = Translit.convert()
-    category = Translit.convert(search_params.fetch(:category_id))
+    location = Location.friendly.find_by(id: search_params[:location_id])
+    if search_params[:category_id]
+      category = Category.friendly.find_by(id: search_params[:category_id])
+    end
     redirect_to ads_path(location, category)
   end
 
   private
 
-  def set_ad
-    @ad = Ad.find(params[:id])
-  end
-
   def search_params
-    params.permit(:location_id, :category_id, :type_of_request)
+    params.permit(:location_id, :category_id, :search, :id)
   end
 end

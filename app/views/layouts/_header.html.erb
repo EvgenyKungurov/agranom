@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav">
         <li><%= link_to t('home'), root_url %></li>
         <li><%= link_to t('articles'), articles_path %></li>
-        <li><%= link_to t('ad'), ads_path %></li>
+        <li><%= link_to t('ad'), ads_path, 'data-turbolinks': false %></li>
         <% if current_user.instance_of? User %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="user_email"><%= current_user.email %> <b class="caret"></div></b></a>
