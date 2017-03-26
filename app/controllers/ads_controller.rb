@@ -4,7 +4,8 @@ class AdsController < ApplicationController
   def index
     @categories = Category.roots.map(&:self_and_descendants)
     @countries  = Location.roots
-    @result = FindAds.new(search_params).call
+    @location   = Location.where(slug: search_params[:location_id])
+    @result     = FindAds.new(search_params).call
   end
 
   # GET /ads/1
@@ -18,7 +19,7 @@ class AdsController < ApplicationController
     if search_params[:category_id]
       category = Category.friendly.find_by(id: search_params[:category_id])
     end
-    redirect_to ads_path(location, category)
+    redirect_to ads_path(location, category, search: search_params[:search])
   end
 
   private

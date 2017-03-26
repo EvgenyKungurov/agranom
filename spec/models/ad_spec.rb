@@ -53,12 +53,15 @@ RSpec.describe Ad, type: :model do
     it 'should #normalize_friendly_id return russian translite' do
       subject.save!
       slug = subject.title.to_slug.normalize(transliterations: :russian).to_s
-      expect(subject.slug).to eq slug
+      expect(subject.slug[0..slug.size - 1]).to eq slug
     end
 
-    it 'should invoke #update_slug' do
-      expect(subject).to receive(:update_slug)
+    it 'should #should_generate_new_friendly_id if title changed' do
       subject.save!
+      subject.title = 'Продам-т800-наконец'
+      subject.save!
+      slug = subject.title.to_slug.normalize(transliterations: :russian).to_s
+      expect(subject.slug[0..slug.size - 1]).to eq slug
     end
   end
 

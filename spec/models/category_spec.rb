@@ -4,7 +4,6 @@ RSpec.describe Category, type: :model do
   subject { FactoryGirl.build(:category) }
 
   it { should validate_presence_of(:name) }
-  it { should validate_uniqueness_of(:name) }
   it { should validate_length_of(:name).is_at_least 3 }
 
   it { should have_many(:ads) }
@@ -21,9 +20,12 @@ RSpec.describe Category, type: :model do
       expect(subject.slug).to eq slug
     end
 
-    it 'should invoke #update_slug' do
-      expect(subject).to receive(:update_slug)
+    it 'should #should_generate_new_friendly_id if name changed' do
       subject.save!
+      subject.name = 'Иннополис'
+      subject.save!
+      slug = subject.name.to_slug.normalize(transliterations: :russian).to_s
+      expect(subject.slug[0..slug.size - 1]).to eq slug
     end
   end
 

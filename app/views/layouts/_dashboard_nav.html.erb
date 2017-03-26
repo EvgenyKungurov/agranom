@@ -6,6 +6,6 @@
     <%= link_to t('my_ads'), profile_ads_path(current_user.profile), class: "list-group-item" %>
     <a href="#" class="list-group-item"><%= t('my_masseges') %></a>
     <a href="#" class="list-group-item"><%= t('my_money') %></a>
-    <a href="#" class="list-group-item"><%= t('profile_config') %></a>
+    <%= link_to t('profile_config'), profile_path(current_user.profile), class: "list-group-item" %>
   </div>
 </div>

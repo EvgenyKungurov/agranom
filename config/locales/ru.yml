@@ -53,6 +53,7 @@ ru:
   close_ad: Закрыть объявление
   enable_ad: Активировать объявление
   select_location: Выберите местоположение
+  any_category: Любая категория
 
   activerecord:
     errors:

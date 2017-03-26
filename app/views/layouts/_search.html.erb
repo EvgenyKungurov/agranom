@@ -2,8 +2,10 @@
   <div class="input-group">
     <div class="input-group-btn">
       <select name="category_id" id="ad_category_id" class="btn btn-default"    required="required">
+        <%= "<option class='root-category'>#{t('any_category')}</option>".html_safe %>
         <% @categories.each do |relation| %>
-          <%= "<option class='root-category' value=#{relation.first.id}>#{relation.first.name}</option>".html_safe %>
+          <%= "<option class='root-category' value=#{relation.first.id}>
+            #{relation.first.name}</option>".html_safe %>
           <% relation[1..-1].each do |category| %>
             <%= "<option value=#{category.id}>#{category.name}</option>".html_safe %>
           <% end %>
@@ -14,7 +16,11 @@
     <div class="input-group-btn">
       <div class="location">
         <%= label_tag t(:city) %>
-        <%= select_tag :location_id, options_from_collection_for_select(Location.roots, 'id', 'name', '1'), include_blank: t('select_location'), class: "btn btn-default", id: 'ad_location_id' %>
+        <% if @location %>
+          <%= select_tag :location_id, options_from_collection_for_select(@location, 'id', 'name', @location.first.id), include_blank: t('select_location'), class: "btn btn-default", id: 'ad_location_id' %>
+        <% else %>
+          <%= select_tag :location_id, options_from_collection_for_select(Location.roots, 'id', 'name', '1'), include_blank: t('select_location'), class: "btn btn-default", id: 'ad_location_id' %>
+        <% end %>
       </div>
     </div> 
     <span class="input-group-btn">
