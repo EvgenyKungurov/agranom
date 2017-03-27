@@ -1,18 +1,19 @@
-<div class="row">
-  <div class="alert alert-success" role="alert">
-    <h4><%= t('category') %>: <%= @ad.category.name %></h4>
-    <h4><%= @ad.title %></h4>
-    <h4><%= t('price') %>: <%= @ad.price %> рублей</h4>
+<div class="container">
+  <div class="row">
+    <div class="alert alert-success" role="alert">
+      <h4><%= t('category') %>: <%= @ad.category.name %></h4>
+      <h4><%= @ad.title %></h4>
+      <h4><%= t('price') %>: <%= @ad.price %> рублей</h4>
+    </div>
+    <%= @ad.content  %>
+    <div id="links"> 
+      <% @ad.photos.each do |photo| %>
+        <%= link_to image_tag(photo.image.url(:thumb)), photo.image.url,  data: { gallery: '' } %>    
+      <% end %>
+    </div>
   </div>
-  <%= @ad.content  %>
-  <div id="links"> 
-    <% @ad.photos.each do |photo| %>
-      <%= link_to image_tag(photo.image.url(:thumb)), photo.image.url,  data: { gallery: '' } %>    
-    <% end %>
-  </div>
-</div>
 
-<div id="blueimp-gallery" class="blueimp-gallery">
+  <div id="blueimp-gallery" class="blueimp-gallery">
     <!-- The container for the modal slides -->
     <div class="slides"></div>
     <!-- Controls for the borderless lightbox -->
@@ -44,4 +45,5 @@
             </div>
         </div>
     </div>
+  </div>
 </div>

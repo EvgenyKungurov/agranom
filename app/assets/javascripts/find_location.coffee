@@ -34,6 +34,10 @@ $(document).on "turbolinks:load", ->
       $('#popup_select_city').find("select").val('')
       $('#popup_select_city').modal('show')
 
+$(document).ready ->
+  $('#popup_select_city').on 'hidden.bs.modal', ->
+    $('[id^="location_child"]').remove()
+
 $(document).on "click", "#popup_select_city_submit", ->
   children_count = $('[id^="location_child"]').size()
   if $('[id^="location_child"]').find(":selected").val() == ''
@@ -43,7 +47,6 @@ $(document).on "click", "#popup_select_city_submit", ->
     $('#ad_location_id option[selected="selected"').removeAttr('selected')
     $('#ad_location_id option:first').after($('<option />', { "value": value, "selected": "selected", text: name}))
     $('#popup_select_city').modal('hide')
-    $('[id^="location_child"]').remove()
     return false
   if $("#location_child_#{children_count}").find(":selected").val() == ''
     value = $("#location_child_#{children_count-1}").find(":selected").val()
@@ -54,7 +57,6 @@ $(document).on "click", "#popup_select_city_submit", ->
   $('#ad_location_id option[selected="selected"').removeAttr('selected')
   $('#ad_location_id option:first').after($('<option />', { "value": value, "selected": "selected", text: name}))
   $('#popup_select_city').modal('hide')
-  $('[id^="location_child"]').remove()
   return false
 
 $(document).on 'change', '[id^="location_child"]', ->

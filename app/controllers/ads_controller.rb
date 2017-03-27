@@ -2,7 +2,7 @@ class AdsController < ApplicationController
   before_action :set_locale
 
   def index
-    @categories = Category.roots.map(&:self_and_descendants)
+    @categories = Category.roots.map(&:self_and_descendants).flatten
     @countries  = Location.roots
     if search_params[:location_id]
       @location = Location.where(slug: search_params[:location_id])
