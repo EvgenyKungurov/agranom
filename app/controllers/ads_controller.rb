@@ -5,7 +5,7 @@ class AdsController < ApplicationController
     @categories = Category.roots.map(&:self_and_descendants)
     @countries  = Location.roots
     if search_params[:location_id]
-      @location = Location.find_by(slug: search_params[:location_id])
+      @location = Location.where(slug: search_params[:location_id])
     end
     @result = FindAds.new(search_params).call
   end
