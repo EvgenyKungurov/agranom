@@ -19,10 +19,10 @@ $(document).on "turbolinks:load", ->
           $('#location').append(
             "<select id=location_child_#{children_count_html} class=form-control required=required></select>"
           )
-        $.each response['locations'], (index, value) ->
-          $("#location_child_#{children_count_html}").append($("<option></option>")
-            .attr('value', '')
-            .text('Выберите место проживания'))
+        $("#location_child_#{children_count_html}").append($("<option></option>")
+          .attr('value', '')
+          .text('Выберите место проживания'))          
+        $.each response['locations'], (index, value) ->  
           $("#location_child_#{children_count_html}").append($("<option></option>")
             .attr("value", value['id'])
             .text(value['name']))
@@ -64,10 +64,10 @@ $(document).on 'change', '[id^="location_child"]', ->
         $('#location').append(
           "<select id=location_child_#{children_count_html} class=form-control required=required></select>"
         )
-      $.each response['locations'], (index, value) ->
-        $("#location_child_#{children_count_html}").append($("<option></option>")
+      $("#location_child_#{children_count_html}").append($("<option></option>")
           .attr('value', '')
-          .text('Выберите место проживания'))
+          .text('Выберите место проживания'))  
+      $.each response['locations'], (index, value) ->
         $("#location_child_#{children_count_html}").append($("<option></option>")
           .attr("value", value['id'])
           .text(value['name']))
