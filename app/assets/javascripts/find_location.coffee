@@ -34,16 +34,28 @@ $(document).on "turbolinks:load", ->
       $('#popup_select_city').find("select").val('')
       $('#popup_select_city').modal('show')
 
-@popupSelectCity = () ->
+$(document).on "click", "#popup_select_city_submit", ->
   children_count = $('[id^="location_child"]').size()
-  $('#popup_select_city').submit ->
+  if $('[id^="location_child"]').find(":selected").val() == ''
+    value = $("#select_country").find(":selected").val()
+    name  = $("#select_country").find(":selected").text()
+    $('#popup_select_city').modal('hide')
+    $('#ad_location_id option[selected="selected"').removeAttr('selected')
+    $('#ad_location_id option:first').after($('<option />', { "value": value, "selected": "selected", text: name}))
+    $('#popup_select_city').modal('hide')
+    $('[id^="location_child"]').remove()
+    return false
+  if $("#location_child_#{children_count}").find(":selected").val() == ''
+    value = $("#location_child_#{children_count-1}").find(":selected").val()
+    name  = $("#location_child_#{children_count-1}").find(":selected").text()
+  else
     value = $("#location_child_#{children_count}").find(":selected").val()
     name  = $("#location_child_#{children_count}").find(":selected").text()
-    $('#ad_location_id option[selected="selected"').removeAttr('selected')
-    $('#email option:first').after($('<option />', { "value": value, text: 'My new option', class: 'new_address_mail' }));
-    $('#ad_location_id option:first').after($('<option />', { "value": value, "selected": "selected", text: name}))
-    $('#popup_select_city').modal('hide') 
-    return false
+  $('#ad_location_id option[selected="selected"').removeAttr('selected')
+  $('#ad_location_id option:first').after($('<option />', { "value": value, "selected": "selected", text: name}))
+  $('#popup_select_city').modal('hide')
+  $('[id^="location_child"]').remove()
+  return false
 
 $(document).on 'change', '[id^="location_child"]', ->
   children_count = parseInt($('[id^="location_child"]').size())

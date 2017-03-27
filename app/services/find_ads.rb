@@ -1,4 +1,4 @@
-# Find location and pass this in js
+# Find ads
 class FindAds
   def initialize(options = {})
     @location_id = Location.friendly.find_by(slug: options[:location_id])&.id
