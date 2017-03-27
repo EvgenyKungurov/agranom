@@ -12,7 +12,7 @@ class FindAds
   end
 
   def call
-    return [] unless @location_id
+    return Ad.none unless @location_id
     @relation.with_query(@search_query)
              .with_location(@location_with_children)
              .with_category(@category_with_children)
