@@ -13,11 +13,11 @@ $(document).on "turbolinks:load", ->
         children_count_html = $('[id^="location_child"]').size() + 1
         if response['children_count'] > 0 && response['locations'][0]['children_count'] == 0
           $('#location').append(
-            "<select name=user[location_id] id=location_child_#{children_count_html} class=form-control required=required></select>"
+            "<select name=user[location_id] id=location_child_#{children_count_html} class=form-control></select>"
           )
         if response['children_count'] > 0 && response['locations'][0]['children_count'] > 0
           $('#location').append(
-            "<select id=location_child_#{children_count_html} class=form-control required=required></select>"
+            "<select id=location_child_#{children_count_html} class=form-control></select>"
           )
         $("#location_child_#{children_count_html}").append($("<option></option>")
           .attr('value', '')
@@ -58,11 +58,11 @@ $(document).on 'change', '[id^="location_child"]', ->
       children_count_html = $('[id^="location_child"]').size() + 1
       if response['children_count'] > 0 && response['locations'][0]['children_count'] == 0
         $('#location').append(
-          "<select name=user[location_id] id=location_child_#{children_count_html} class=form-control required=required></select>"
+          "<select name=user[location_id] id=location_child_#{children_count_html} class=form-control></select>"
         )
       if response['children_count'] > 0 && response['locations'][0]['children_count'] > 0
         $('#location').append(
-          "<select id=location_child_#{children_count_html} class=form-control required=required></select>"
+          "<select id=location_child_#{children_count_html} class=form-control></select>"
         )
       $("#location_child_#{children_count_html}").append($("<option></option>")
           .attr('value', '')
