@@ -4,6 +4,7 @@ class AdsController < ApplicationController
   def index
     @categories = Category.roots.map(&:self_and_descendants).flatten
     @countries  = Location.roots
+    @current_country = current_country.id
     if search_params[:location_id]
       @location = Location.where(slug: search_params[:location_id])
     end
@@ -25,6 +26,12 @@ class AdsController < ApplicationController
   end
 
   private
+
+  def current_country
+    country = { ru: 'Россия', cn: 'Китай' }
+    country_name = country[params[:locale].to_sym]
+    Location.find_by_name(country_name)
+  end
 
   def search_params
     params.permit(:location_id, :category_id, :search, :id)
