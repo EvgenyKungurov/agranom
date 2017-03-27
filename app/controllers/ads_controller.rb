@@ -8,7 +8,7 @@ class AdsController < ApplicationController
     if search_params[:location_id]
       @location = Location.where(slug: search_params[:location_id])
     end
-    @result = FindAds.new(search_params).call
+    @ads = FindAds.new(search_params).call.page(params[:page]).per(10)
   end
 
   # GET /ads/1

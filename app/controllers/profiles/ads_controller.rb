@@ -8,11 +8,11 @@ class Profiles::AdsController < ApplicationController
   layout 'profile'
 
   def index
-    @ads = Ad.where(user_id: current_user.id).active
+    @ads = Ad.where(user_id: current_user.id).active.page(params[:page]).per(10)
   end
 
   def archive
-    @ads = Ad.where(user_id: current_user.id).not_active
+    @ads = Ad.where(user_id: current_user.id).not_active.page(params[:page]).per(10)
   end
 
   def new
