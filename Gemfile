@@ -1,11 +1,9 @@
 source 'https://rubygems.org'
-ruby "2.4.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 gem 'bootstrap-validator-rails'
 # Use pg as the database for Active Record
 gem 'pg'
-gem 'database_cleaner'
 gem 'pg_search'
 gem 'friendly_id', '~> 5.1.0'
 # Transliterate cyrillic
@@ -68,16 +66,20 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'rspec-rails', '~> 3.5'
   gem 'guard-rspec', require: false
+  gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
   gem 'listen', '~> 3.0.5'
+  gem 'web-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-puma'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
